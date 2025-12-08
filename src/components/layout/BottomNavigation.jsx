@@ -2,76 +2,97 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 
 export default function BottomNavigation() {
   const pathname = usePathname();
+  const [hoveredIndex, setHoveredIndex] = useState(null);
   
   const navItems = [
     {
       href: "/explore?category=home-living",
       label: "Home & Living",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M8.5 0.5L17 5.5V16.5H11V10.5H6V16.5H0V5.5L8.5 0.5Z" fill="currentColor"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ),
-      activeColor: "text-emerald-700",
-      bgColor: "bg-emerald-50"
+      gradient: "from-emerald-400 via-teal-500 to-cyan-500",
+      glowColor: "rgba(16, 185, 129, 0.5)",
+      bgGlow: "shadow-emerald-500/40"
     },
     {
       href: "/explore?category=fashion",
-      label: "Sustainable Fashion",
+      label: "Fashion",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M15.1425 3.23573L15.2371 3.22876L15.3487 3.23274L15.4612 3.24967L15.5738 3.27955L21.55 5.27163C21.7296 5.33152 21.8885 5.44138 22.0079 5.58833C22.1273 5.73528 22.2024 5.91323 22.2243 6.10133L22.2313 6.21687V11.197C22.2312 11.441 22.1417 11.6765 21.9796 11.8588C21.8175 12.0411 21.5941 12.1576 21.3518 12.1861L21.2352 12.1931H19.2432V19.1653C19.2433 19.6679 19.0535 20.152 18.7118 20.5205C18.3701 20.889 17.9017 21.1147 17.4005 21.1524L17.2511 21.1574H7.29073C6.78815 21.1576 6.30409 20.9678 5.93557 20.626C5.56706 20.2843 5.34133 19.8159 5.30364 19.3147L5.29866 19.1653V12.1931H3.30658C3.06262 12.1931 2.82715 12.1035 2.64484 11.9414C2.46254 11.7793 2.34606 11.5559 2.31752 11.3136L2.31055 11.197V6.21687C2.31048 6.02747 2.36442 5.84197 2.46604 5.68214C2.56765 5.52231 2.71273 5.39476 2.88426 5.31446L2.99184 5.27163L8.96806 3.27955C9.11779 3.22968 9.27724 3.2161 9.43325 3.23994C9.58926 3.26378 9.73738 3.32435 9.86539 3.41667C9.9934 3.50898 10.0976 3.63039 10.1695 3.77089C10.2414 3.91139 10.2789 4.06697 10.2788 4.22479C10.2765 4.74172 10.4752 5.2393 10.833 5.61242C11.1908 5.98554 11.6796 6.20498 12.1962 6.22438C12.7127 6.24377 13.2166 6.06161 13.6013 5.71637C13.9861 5.37112 14.2216 4.88984 14.258 4.3742L14.267 4.13515L14.2839 4.0226L14.3208 3.88913L14.3646 3.78654L14.4144 3.6949L14.4821 3.60227L14.5508 3.52259C14.606 3.46946 14.6641 3.42298 14.7251 3.38314L14.8208 3.33035L14.9234 3.28653L15.0309 3.25465L15.1425 3.23573Z" fill="currentColor"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.5 6.5L3 3m0 0l3.5 3.5M3 3l3.5-3.5M17.5 6.5L21 3m0 0l-3.5 3.5M21 3l-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M12 3v4m0 0a4 4 0 00-4 4v10h8V11a4 4 0 00-4-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ),
-      activeColor: "text-emerald-600",
-      bgColor: "bg-emerald-50"
+      gradient: "from-orange-400 via-amber-500 to-yellow-500",
+      glowColor: "rgba(251, 146, 60, 0.5)",
+      bgGlow: "shadow-orange-500/40"
     },
     {
       href: "/explore?category=upcycled",
-      label: "Upcycled & Handmade",
-      icon: "🎨",
-      activeColor: "text-emerald-700",
-      bgColor: "bg-emerald-50"
+      label: "Upcycled",
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      ),
+      gradient: "from-violet-400 via-purple-500 to-fuchsia-500",
+      glowColor: "rgba(139, 92, 246, 0.5)",
+      bgGlow: "shadow-purple-500/40"
     },
     {
       href: "/explore?category=beauty-personal-care",
-      label: "Clean Beauty",
+      label: "Beauty",
       icon: (
-        <svg width="20" height="20" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fillRule="evenodd" clipRule="evenodd" d="M1.59921 1.99719C2.53314 1.06355 3.79964 0.539062 5.1202 0.539062C6.44077 0.539062 7.70727 1.06355 8.64119 1.99719C8.8238 2.17914 9.05886 2.40557 9.34639 2.67649C9.63325 2.40557 9.86798 2.17914 10.0506 1.99719C10.9806 1.07155 12.2383 0.550334 13.5505 0.54682C14.8626 0.543306 16.1231 1.05778 17.0581 1.97843C17.993 2.89908 18.5269 4.15151 18.5436 5.46355C18.5603 6.77559 18.0585 8.04122 17.1473 8.98539L10.0496 16.0831C9.8628 16.2699 9.6095 16.3748 9.34539 16.3748C9.08128 16.3748 8.82798 16.2699 8.64119 16.0831L1.54344 8.98638C0.633098 8.04752 0.128575 6.78826 0.138825 5.48056C0.149075 4.17287 0.674271 2.92167 1.59921 1.99719Z" fill="currentColor"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ),
-      activeColor: "text-emerald-500",
-      bgColor: "bg-emerald-50"
+      gradient: "from-pink-400 via-rose-500 to-red-500",
+      glowColor: "rgba(236, 72, 153, 0.5)",
+      bgGlow: "shadow-pink-500/40"
     },
     {
       href: "/explore?category=pets",
       label: "Pets",
       icon: (
-        <svg viewBox="0 0 64 64" width="20" height="20" fill="currentColor" aria-hidden="true">
-          <circle cx="18" cy="22" r="6"/>
-          <circle cx="28" cy="14" r="6"/>
-          <circle cx="36" cy="14" r="6"/>
-          <circle cx="46" cy="22" r="6"/>
-          <ellipse cx="32" cy="44" rx="16" ry="13"/>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="6" cy="7" r="2.5" stroke="currentColor" strokeWidth="2"/>
+          <circle cx="18" cy="7" r="2.5" stroke="currentColor" strokeWidth="2"/>
+          <circle cx="10" cy="4" r="2" stroke="currentColor" strokeWidth="2"/>
+          <circle cx="14" cy="4" r="2" stroke="currentColor" strokeWidth="2"/>
+          <path d="M12 22c-4 0-7-3-7-7 0-2 1-4 3-5s4-1 4-1 2 0 4 1 3 3 3 5c0 4-3 7-7 7z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ),
-      activeColor: "text-emerald-600",
-      bgColor: "bg-emerald-50"
+      gradient: "from-amber-400 via-yellow-500 to-orange-400",
+      glowColor: "rgba(245, 158, 11, 0.5)",
+      bgGlow: "shadow-amber-500/40"
     },
     {
       href: "/explore?category=fitness",
       label: "Fitness",
-      icon: "💪",
-      activeColor: "text-emerald-700",
-      bgColor: "bg-emerald-50"
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6.5 6.5l11 11M6.5 17.5l11-11" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+          <path d="M4 8h2v8H4zM18 8h2v8h-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M2 10h2v4H2zM20 10h2v4h-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      ),
+      gradient: "from-green-400 via-emerald-500 to-teal-500",
+      glowColor: "rgba(34, 197, 94, 0.5)",
+      bgGlow: "shadow-green-500/40"
     }
   ];
 
-  // Check if current path matches any nav item
   const getIsActive = (href) => {
     if (href.includes('category=')) {
       const category = href.split('category=')[1];
@@ -84,54 +105,172 @@ export default function BottomNavigation() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 flex justify-center">
-      {/* Safe area for iPhone notch */}
-      <div className="safe-area-inset-bottom">
-        <div className="bg-white/90 border border-emerald-200 backdrop-blur-xl shadow-lg rounded-2xl mx-4 mb-4 px-4 py-3">
-          <div className="flex items-center justify-center gap-4 sm:gap-6">
-          {navItems.map((item, index) => {
-            const isActive = getIsActive(item.href);
-            
-            return (
-              <Link
-                key={index}
-                href={item.href}
-                className={`
-                  group flex flex-col items-center justify-center p-3 rounded-xl transition-all duration-300 hover-lift active:scale-95
-                  ${isActive ? `${item.bgColor} ${item.activeColor} shadow-md` : 'text-gray-600 hover:text-emerald-700 hover:bg-emerald-50/50'}
-                  min-w-[64px] max-w-[80px] touch-manipulation
-                `}
-              >
-                {/* Icon Container */}
-                <div className={`
-                  flex items-center justify-center w-8 h-8 mb-1 transition-all duration-300
-                  ${isActive ? 'scale-110 animate-pulse-glow' : 'group-hover:scale-110'}
-                `}>
-                  {typeof item.icon === 'string' ? (
-                    <span className="text-lg">{item.icon}</span>
-                  ) : (
-                    item.icon
-                  )}
-                </div>
-                
-                {/* Label */}
-                <span className={`
-                  text-[9px] sm:text-[10px] font-medium text-center leading-tight line-clamp-2 transition-all duration-300
-                  ${isActive ? `font-semibold ${item.activeColor}` : 'group-hover:font-medium'}
-                `}>
-                  {item.label}
-                </span>
-                
-                {/* Active Indicator - Animated Dot */}
-                {isActive && (
-                  <div className={`w-1 h-1 ${item.activeColor.replace('text-', 'bg-')} rounded-full mt-1 animate-pulse`}></div>
-                )}
-              </Link>
-            );
-          })}
+    <>
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translateY(0px) rotateX(0deg); }
+          50% { transform: translateY(-8px) rotateX(5deg); }
+        }
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 20px var(--glow-color), 0 0 40px var(--glow-color); }
+          50% { box-shadow: 0 0 30px var(--glow-color), 0 0 60px var(--glow-color); }
+        }
+        @keyframes shimmer {
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
+        }
+        @keyframes bounce-in {
+          0% { transform: scale(0.3) rotateY(-180deg); opacity: 0; }
+          50% { transform: scale(1.05) rotateY(-10deg); }
+          70% { transform: scale(0.95) rotateY(5deg); }
+          100% { transform: scale(1) rotateY(0deg); opacity: 1; }
+        }
+        @keyframes icon-spin {
+          0% { transform: rotateY(0deg); }
+          100% { transform: rotateY(360deg); }
+        }
+        @keyframes gradient-shift {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        .preserve-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .nav-card-3d {
+          transform: rotateX(0deg) rotateY(0deg) translateZ(0px);
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .nav-card-3d:hover {
+          transform: rotateX(-10deg) rotateY(5deg) translateZ(20px) scale(1.08);
+        }
+        .icon-3d-rotate:hover {
+          animation: icon-spin 0.6s ease-in-out;
+        }
+        .shimmer-bg {
+          background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+          background-size: 200% 100%;
+          animation: shimmer 2s infinite;
+        }
+        .gradient-animate {
+          background-size: 200% 200%;
+          animation: gradient-shift 3s ease infinite;
+        }
+      `}</style>
+      
+      <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none pb-4 px-3">
+        <div className="flex justify-center">
+          <div className="pointer-events-auto perspective-1000">
+            <div className="relative bg-white/80 backdrop-blur-2xl border border-white/40 rounded-[32px] p-3 shadow-2xl shadow-gray-900/20">
+              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10 opacity-60" />
+              <div className="absolute inset-0 rounded-[32px] overflow-hidden">
+                <div className="absolute inset-0 shimmer-bg opacity-30" />
+              </div>
+              
+              <div className="relative flex items-center gap-2 sm:gap-3">
+                {navItems.map((item, index) => {
+                  const isActive = getIsActive(item.href);
+                  const isHovered = hoveredIndex === index;
+                  
+                  return (
+                    <Link
+                      key={index}
+                      href={item.href}
+                      onMouseEnter={() => setHoveredIndex(index)}
+                      onMouseLeave={() => setHoveredIndex(null)}
+                      className="relative group perspective-1000"
+                      style={{ '--glow-color': item.glowColor }}
+                    >
+                      <div 
+                        className={`
+                          nav-card-3d preserve-3d relative flex flex-col items-center justify-center 
+                          px-3 py-2.5 sm:px-4 sm:py-3 rounded-2xl
+                          transition-all duration-300 ease-out cursor-pointer
+                          ${isActive 
+                            ? `bg-gradient-to-br ${item.gradient} shadow-xl ${item.bgGlow}` 
+                            : 'bg-white/60 hover:bg-white/90 shadow-lg hover:shadow-xl'
+                          }
+                        `}
+                      >
+                        <div 
+                          className={`
+                            relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl
+                            transition-all duration-300 preserve-3d
+                            ${isActive 
+                              ? 'text-white' 
+                              : `bg-gradient-to-br ${item.gradient} gradient-animate text-white shadow-lg ${item.bgGlow}`
+                            }
+                            ${isHovered && !isActive ? 'icon-3d-rotate scale-110' : ''}
+                          `}
+                          style={isHovered && !isActive ? { animation: 'float 2s ease-in-out infinite' } : {}}
+                        >
+                          {isActive && (
+                            <div 
+                              className="absolute inset-0 rounded-xl opacity-60"
+                              style={{ animation: 'pulse-glow 2s ease-in-out infinite', '--glow-color': item.glowColor }}
+                            />
+                          )}
+                          
+                          <div className="absolute inset-0 rounded-xl overflow-hidden opacity-40">
+                            <div className="absolute inset-0 shimmer-bg" />
+                          </div>
+                          
+                          <div className="relative z-10 transition-transform duration-300">
+                            {item.icon}
+                          </div>
+                          
+                          {isActive && (
+                            <>
+                              <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full shadow-lg flex items-center justify-center">
+                                <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.gradient}`} />
+                              </div>
+                              <div className="absolute inset-0 rounded-xl border-2 border-white/30" />
+                            </>
+                          )}
+                        </div>
+                        
+                        <span 
+                          className={`
+                            mt-1.5 text-[10px] sm:text-xs font-semibold text-center transition-all duration-300
+                            ${isActive 
+                              ? 'text-white drop-shadow-sm' 
+                              : 'text-gray-700 group-hover:text-gray-900'
+                            }
+                          `}
+                        >
+                          {item.label}
+                        </span>
+
+                        {isHovered && !isActive && (
+                          <div className="absolute -inset-1 rounded-2xl bg-gradient-to-br from-white/20 to-transparent pointer-events-none" />
+                        )}
+
+                        {isActive && (
+                          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-white/80 shadow-lg" />
+                        )}
+                      </div>
+
+                      {isHovered && !isActive && (
+                        <div 
+                          className={`
+                            absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-3 rounded-full blur-md opacity-60
+                            bg-gradient-to-r ${item.gradient}
+                          `}
+                        />
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }

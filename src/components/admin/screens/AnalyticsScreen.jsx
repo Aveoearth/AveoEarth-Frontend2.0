@@ -3,8 +3,8 @@
 import { useState, useEffect } from "react";
 import { 
   ChartBarIcon, 
-  TrendingUpIcon, 
-  TrendingDownIcon,
+  ArrowTrendingUpIcon,
+  ArrowTrendingDownIcon,
   CurrencyDollarIcon,
   ShoppingBagIcon,
   UsersIcon,
@@ -183,7 +183,7 @@ export default function AnalyticsScreen() {
             </div>
           </div>
           <div className="mt-4 flex items-center">
-            <TrendingUpIcon className="h-4 w-4 text-emerald-500 mr-1" />
+            <ArrowTrendingUpIcon className="h-4 w-4 text-emerald-500 mr-1" />
             <span className="text-sm text-emerald-600 font-medium">
               {formatPercentage(analyticsData.overview.revenueGrowth)}
             </span>
@@ -202,7 +202,7 @@ export default function AnalyticsScreen() {
             </div>
           </div>
           <div className="mt-4 flex items-center">
-            <TrendingUpIcon className="h-4 w-4 text-emerald-500 mr-1" />
+            <ArrowTrendingUpIcon className="h-4 w-4 text-emerald-500 mr-1" />
             <span className="text-sm text-emerald-600 font-medium">
               {formatPercentage(analyticsData.overview.ordersGrowth)}
             </span>
@@ -221,7 +221,7 @@ export default function AnalyticsScreen() {
             </div>
           </div>
           <div className="mt-4 flex items-center">
-            <TrendingUpIcon className="h-4 w-4 text-emerald-500 mr-1" />
+            <ArrowTrendingUpIcon className="h-4 w-4 text-emerald-500 mr-1" />
             <span className="text-sm text-emerald-600 font-medium">
               {formatPercentage(analyticsData.overview.usersGrowth)}
             </span>
@@ -240,7 +240,7 @@ export default function AnalyticsScreen() {
             </div>
           </div>
           <div className="mt-4 flex items-center">
-            <TrendingUpIcon className="h-4 w-4 text-emerald-500 mr-1" />
+            <ArrowTrendingUpIcon className="h-4 w-4 text-emerald-500 mr-1" />
             <span className="text-sm text-emerald-600 font-medium">
               {formatPercentage(analyticsData.overview.productsGrowth)}
             </span>

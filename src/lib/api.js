@@ -1,20 +1,36 @@
 // Modular API client for FastAPI backend
 const API_BASE = process.env.NEXT_PUBLIC_API_BASE || "http://localhost:8000";
 const VERIFICATION_API_BASE = process.env.NEXT_PUBLIC_VERIFICATION_API_BASE || "http://localhost:8001";
+const REQUEST_TIMEOUT = 5000;
 
 // Generic request handler for JSON requests
-async function request(path, { method = "GET", body, token } = {}) {
+async function request(path, { method = "GET", body, token, timeout = REQUEST_TIMEOUT } = {}) {
   const headers = { "Content-Type": "application/json" };
   // Only add Authorization header if token is provided and not null/undefined
   if (token) {
     headers["Authorization"] = `Bearer ${token}`;
   }
 
-  const res = await fetch(`${API_BASE}${path}`, {
-    method,
-    headers,
-    body: body ? JSON.stringify(body) : undefined,
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  let res;
+  try {
+    res = await fetch(`${API_BASE}${path}`, {
+      method,
+      headers,
+      body: body ? JSON.stringify(body) : undefined,
+      signal: controller.signal,
+    });
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error('Request timeout - backend not available');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   let data = null;
   try {
@@ -44,16 +60,31 @@ async function request(path, { method = "GET", body, token } = {}) {
 }
 
 // File upload handler for multipart/form-data requests
-async function uploadRequest(path, { method = "POST", formData, token } = {}) {
+async function uploadRequest(path, { method = "POST", formData, token, timeout = 30000 } = {}) {
   const headers = {};
   if (token) headers["Authorization"] = `Bearer ${token}`;
   // Don't set Content-Type header for FormData - browser will set it with boundary
 
-  const res = await fetch(`${API_BASE}${path}`, {
-    method,
-    headers,
-    body: formData,
-  });
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+  let res;
+  try {
+    res = await fetch(`${API_BASE}${path}`, {
+      method,
+      headers,
+      body: formData,
+      signal: controller.signal,
+    });
+  } catch (error) {
+    clearTimeout(timeoutId);
+    if (error.name === 'AbortError') {
+      throw new Error('Upload timeout - backend not available');
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeoutId);
+  }
 
   let data = null;
   try {

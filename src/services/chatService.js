@@ -6,7 +6,16 @@ class ChatService {
     this.baseURL = API_BASE_URL;
   }
 
-  async sendMessage({ message, user_token, session_id }) {
+  async isAvailable() {
+    try {
+      const response = await this.checkHealth();
+      return response && response.status === 'healthy';
+    } catch (error) {
+      return false;
+    }
+  }
+
+  async sendMessage({ message, user_token, session_id, user_type = 'buyer' }) {
     try {
       const response = await fetch(`${this.baseURL}/chat`, {
         method: 'POST',
@@ -16,7 +25,8 @@ class ChatService {
         body: JSON.stringify({
           message,
           user_token,
-          session_id
+          session_id,
+          user_type
         }),
       });
 

@@ -2,7 +2,7 @@
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0f172a] text-white w-full relative overflow-hidden border-t border-gray-800">
+    <footer className="bg-emerald-900 text-white w-full relative overflow-hidden border-t border-emerald-700">
       <div className="max-w-[1200px] mx-auto px-6 pt-[45px] pb-0 relative z-10">
         
         {/* Main Footer Content */}
@@ -16,7 +16,7 @@ export default function Footer() {
                 <img 
                   src="/logo.png" 
                   alt="AveoEarth Logo" 
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain brightness-0 invert"
                 />
               </div>
               <span className="font-poppins font-medium text-white text-[26px] tracking-[-0.72px] leading-[30px]">
@@ -119,8 +119,8 @@ export default function Footer() {
         </div>
         
         {/* Subscribe Row */}
-        <div className="py-6 border-t border-gray-800 flex flex-col md:flex-row items-center justify-between gap-4">
-          <div className="text-sm text-gray-300">Stay updated with product drops and eco-tips</div>
+        <div className="py-6 border-t border-emerald-700 flex flex-col md:flex-row items-center justify-between gap-4">
+          <div className="text-sm text-emerald-100">Stay updated with product drops and eco-tips</div>
           <form
             className="flex items-center gap-2 w-full md:w-auto"
             onSubmit={async (e) => {
@@ -142,16 +142,16 @@ export default function Footer() {
               }
             }}
           >
-            <input name="newsletter-email" type="email" required placeholder="you@example.com" className="px-3 py-2 rounded-md bg-[#0b1220] border border-gray-700 text-gray-100 placeholder:text-gray-400 w-full md:w-72" />
-            <button type="submit" className="px-4 py-2 rounded-md bg-emerald-600 hover:bg-emerald-700 text-white">Subscribe</button>
+            <input name="newsletter-email" type="email" required placeholder="you@example.com" className="px-3 py-2 rounded-md bg-emerald-800 border border-emerald-600 text-emerald-50 placeholder:text-emerald-300 w-full md:w-72" />
+            <button type="submit" className="px-4 py-2 rounded-md bg-emerald-500 hover:bg-emerald-400 text-white font-medium transition-colors">Subscribe</button>
           </form>
         </div>
 
         {/* Footer Bottom - Copyright and Payment Methods */}
-        <div className="flex flex-col md:flex-row items-center justify-between py-[18px] border-t border-gray-800 gap-4">
+        <div className="flex flex-col md:flex-row items-center justify-between py-[18px] border-t border-emerald-700 gap-4">
           
           {/* Copyright */}
-          <p className="font-poppins text-gray-300 text-[10.5px] leading-[1.5]">
+          <p className="font-poppins text-emerald-200 text-[10.5px] leading-[1.5]">
             AveoEarth © 2025. All Rights Reserved
           </p>
           
@@ -159,36 +159,36 @@ export default function Footer() {
           <div className="flex gap-[5px] items-center">
             
             {/* UPI */}
-            <div className="bg-[#0b1220] h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-gray-700">
-              <span className="text-[8px] font-bold text-gray-300">UPI</span>
+            <div className="bg-emerald-800 h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-emerald-600">
+              <span className="text-[8px] font-bold text-emerald-200">UPI</span>
             </div>
             
             {/* Visa */}
-            <div className="bg-[#0b1220] h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-gray-700">
-              <span className="text-[8px] font-bold text-gray-300">VISA</span>
+            <div className="bg-emerald-800 h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-emerald-600">
+              <span className="text-[8px] font-bold text-emerald-200">VISA</span>
             </div>
             
             {/* Mastercard */}
-            <div className="bg-[#0b1220] h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-gray-700">
+            <div className="bg-emerald-800 h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-emerald-600">
               <div className="flex">
-                <div className="w-2 h-2 bg-[#8b4513] rounded-full"></div>
-                <div className="w-2 h-2 bg-[#a0522d] rounded-full -ml-1"></div>
+                <div className="w-2 h-2 bg-emerald-400 rounded-full"></div>
+                <div className="w-2 h-2 bg-emerald-300 rounded-full -ml-1"></div>
               </div>
             </div>
             
             {/* American Express */}
-            <div className="bg-[#0b1220] h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-gray-700">
-              <span className="text-[7px] font-bold text-gray-300">AMEX</span>
+            <div className="bg-emerald-800 h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-emerald-600">
+              <span className="text-[7px] font-bold text-emerald-200">AMEX</span>
             </div>
             
             {/* RuPay */}
-            <div className="bg-[#0b1220] h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-gray-700">
-              <span className="text-[7px] font-bold text-gray-300">RuPay</span>
+            <div className="bg-emerald-800 h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-emerald-600">
+              <span className="text-[7px] font-bold text-emerald-200">RuPay</span>
             </div>
             
             {/* Diners Club */}
-            <div className="bg-[#0b1220] h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-gray-700">
-              <span className="text-[7px] font-bold text-gray-300">Diners</span>
+            <div className="bg-emerald-800 h-6 w-[35px] rounded-[5px] flex items-center justify-center overflow-hidden border border-emerald-600">
+              <span className="text-[7px] font-bold text-emerald-200">Diners</span>
             </div>
           </div>
         </div>

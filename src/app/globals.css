@@ -4,21 +4,21 @@
 :root {
   /* Core surface + text */
   --background: #ffffff;
-  --foreground: #09101D; /* Neutral / Black */
+  --foreground: #1f2937; /* Neutral gray-800 */
 
-  /* Brand */
-  --color-brand-primary: #502C0A; /* Primary */
-  --color-brand-secondary: #FDCC4A; /* Secondary */
+  /* Brand - Sustainability Green Theme */
+  --color-brand-primary: #047857; /* Emerald-700 - Primary green */
+  --color-brand-secondary: #10b981; /* Emerald-500 - Secondary green */
 
-  /* Action tokens (Buttons, links) */
-  --action-primary: #E86C00;
-  --action-primary-hover: #CC5F00;
-  --action-primary-active: #B25300;
+  /* Action tokens (Buttons, links) - All Green */
+  --action-primary: #059669; /* Emerald-600 */
+  --action-primary-hover: #047857; /* Emerald-700 */
+  --action-primary-active: #065f46; /* Emerald-800 */
   --action-primary-inverted: #FFFFFF;
 
-  --action-secondary: #19AB4F;
-  --action-secondary-hover: #0C9E42;
-  --action-secondary-active: #009236;
+  --action-secondary: #10b981; /* Emerald-500 */
+  --action-secondary-hover: #059669; /* Emerald-600 */
+  --action-secondary-active: #047857; /* Emerald-700 */
   --action-secondary-inverted: #FFFFFF;
 
   --action-neutral: #9098A1;
@@ -62,18 +62,23 @@
   --status-info-bg: #EEF2FA;
 
   /* Backward-compat aliases (map to new tokens) */
-  --color-green-primary: var(--action-secondary);
-  --color-green-secondary: var(--action-secondary-hover);
-  --color-green-accent: var(--color-brand-secondary);
-  --color-green-light: var(--color-neutral-7);
-  --color-green-subtle: var(--color-neutral-9);
+  --color-green-primary: #047857; /* Emerald-700 */
+  --color-green-secondary: #059669; /* Emerald-600 */
+  --color-green-accent: #10b981; /* Emerald-500 */
+  --color-green-light: #d1fae5; /* Emerald-100 */
+  --color-green-subtle: #ecfdf5; /* Emerald-50 */
 
-  /* Eco color variables for components */
-  --color-eco-primary: #047857; /* emerald-700 */
-  --color-eco-secondary: #059669; /* emerald-600 */
-  --color-eco-accent: #10b981; /* emerald-500 */
-  --color-eco-light: #d1fae5; /* emerald-100 */
-  --color-eco-subtle: #ecfdf5; /* emerald-50 */
+  /* Eco color variables for components - Sustainability Theme */
+  --color-eco-primary: #047857; /* Emerald-700 */
+  --color-eco-secondary: #059669; /* Emerald-600 */
+  --color-eco-accent: #10b981; /* Emerald-500 */
+  --color-eco-light: #d1fae5; /* Emerald-100 */
+  --color-eco-subtle: #ecfdf5; /* Emerald-50 */
+  
+  /* Footer Theme - Green */
+  --footer-bg: #064e3b; /* Emerald-900 */
+  --footer-text: #ecfdf5; /* Emerald-50 */
+  --footer-border: #047857; /* Emerald-700 */
 
   /* Legacy neutrals mapped to new scale for safety */
   --color-neutral-900: var(--color-neutral-black);

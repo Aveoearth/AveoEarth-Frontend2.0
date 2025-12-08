@@ -204,6 +204,7 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
               src={product.image}
               alt={product.name}
               fill
+              loading="lazy"
               className="object-contain p-3"
             />
           </motion.div>

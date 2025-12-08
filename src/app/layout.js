@@ -57,14 +57,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} ${reemkufi.variable} ${poppins.variable} antialiased pt-[76px] pb-[88px]`}
+        className={`${geistSans.variable} ${geistMono.variable} ${ebGaramond.variable} ${reemkufi.variable} ${poppins.variable} antialiased pt-[76px]`}
         suppressHydrationWarning={true}
       >
         <AuthProvider>
           <CartProvider>
             <OrdersProvider>
               <Navbar />
-              <main className="min-h-screen">
+              <main className="min-h-screen pb-[88px]">
                 {children}
               </main>
               <BottomNavigation />

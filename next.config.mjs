@@ -13,6 +13,7 @@ const nextConfig = {
   experimental: {
     allowedDevOrigins: ['*'],
   },
+  devIndicators: false,
 };
 
 export default nextConfig;

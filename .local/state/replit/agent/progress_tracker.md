@@ -14,3 +14,5 @@
 [x] 12. Replaced old AveoBuddy.mp4 with new AveoBuddy.webm video
 [x] 13. Enlarged chatbot video button from 160px to 200px
 [x] 14. Fixed chatbox position at bottom-right with 24px margins
+[x] 15. Added subtle blurred emerald gradient backgrounds to Trending/New Arrivals/Top Rated sections
+[x] 16. Implemented lazy loading for all product images (ProductCard, HotDealsSection, TopPicksSection, Category cards)

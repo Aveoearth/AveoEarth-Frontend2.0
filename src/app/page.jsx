@@ -418,13 +418,13 @@ export default function HomePage() {
         {/* Parallax Background */}
         <div className="absolute inset-0 parallax-layer">
           <Image
-            src="/hero-sustainable-products.jpg"
+            src="/hero-sustainability-new.png"
             alt="Sustainable lifestyle products"
             fill
-            className="object-cover opacity-50"
+            className="object-cover opacity-70"
             priority
           />
-          <div className="absolute inset-0 bg-white/50" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/60 via-white/40 to-transparent" />
         </div>
         
         <div className="relative z-10 container mx-auto px-6 lg:px-10 pt-20 pb-16">
@@ -601,6 +601,7 @@ export default function HomePage() {
                       src={cat.bgImage} 
                       alt={cat.name}
                       fill
+                      loading="lazy"
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
@@ -647,26 +648,26 @@ export default function HomePage() {
 
 
       {/* Product Recommendations - Showcasing Featured Eco Products */}
-      <div className="container mx-auto px-4 py-8 sm:py-16 space-y-8 sm:space-y-16">
+      <div className="container mx-auto px-4 py-6 sm:py-10 space-y-6 sm:space-y-8">
         <ProductRecommendations 
           type="trending" 
           limit={8}
           title="🌿 Trending Eco Products"
-          className="mb-8 sm:mb-16"
+          className=""
         />
         
         <ProductRecommendations 
           type="new-arrivals" 
           limit={8}
           title="🆕 New Sustainable Arrivals"
-          className="mb-8 sm:mb-16"
+          className=""
         />
         
         <ProductRecommendations 
           type="top-rated" 
           limit={8}
           title="⭐ Top Rated Green Products"
-          className="mb-8 sm:mb-16"
+          className=""
         />
       </div>
 

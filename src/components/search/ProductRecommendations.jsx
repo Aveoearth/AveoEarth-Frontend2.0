@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import ProductCard from '@/components/ui/ProductCard';
 
 export default function ProductRecommendations({ 
@@ -41,9 +42,9 @@ export default function ProductRecommendations({
       compare_at_price: 35,
       rating: 4.8,
       review_count: 156,
-      primary_image: "/hero1.png",
+      primary_image: "/products/bamboo_toothbrush_set.png",
       category_name: "Personal Care",
-      images: ["/hero1.png"]
+      images: ["/products/bamboo_toothbrush_set.png"]
     },
     {
       id: 2,
@@ -54,9 +55,9 @@ export default function ProductRecommendations({
       compare_at_price: 25,
       rating: 4.6,
       review_count: 89,
-      primary_image: "/hero1.png",
+      primary_image: "/products/organic_cotton_tote_bag.png",
       category_name: "Fashion",
-      images: ["/hero1.png"]
+      images: ["/products/organic_cotton_tote_bag.png"]
     },
     {
       id: 3,
@@ -67,9 +68,9 @@ export default function ProductRecommendations({
       compare_at_price: 45,
       rating: 4.9,
       review_count: 234,
-      primary_image: "/hero1.png",
+      primary_image: "/products/stainless_steel_tumbler.png",
       category_name: "Drinkware",
-      images: ["/hero1.png"]
+      images: ["/products/stainless_steel_tumbler.png"]
     },
     {
       id: 4,
@@ -80,9 +81,9 @@ export default function ProductRecommendations({
       compare_at_price: 18,
       rating: 4.4,
       review_count: 67,
-      primary_image: "/hero1.png",
+      primary_image: "/products/recycled_paper_notebook.png",
       category_name: "Stationery",
-      images: ["/hero1.png"]
+      images: ["/products/recycled_paper_notebook.png"]
     },
     {
       id: 5,
@@ -93,9 +94,9 @@ export default function ProductRecommendations({
       compare_at_price: 60,
       rating: 4.5,
       review_count: 123,
-      primary_image: "/hero1.png",
+      primary_image: "/products/solar_power_bank.png",
       category_name: "Tech",
-      images: ["/hero1.png"]
+      images: ["/products/solar_power_bank.png"]
     },
     {
       id: 6,
@@ -106,9 +107,9 @@ export default function ProductRecommendations({
       compare_at_price: 85,
       rating: 4.7,
       review_count: 198,
-      primary_image: "/hero1.png",
+      primary_image: "/products/hemp_fiber_yoga_mat.png",
       category_name: "Fitness",
-      images: ["/hero1.png"]
+      images: ["/products/hemp_fiber_yoga_mat.png"]
     },
     {
       id: 7,
@@ -119,9 +120,9 @@ export default function ProductRecommendations({
       compare_at_price: 40,
       rating: 4.6,
       review_count: 145,
-      primary_image: "/hero1.png",
+      primary_image: "/products/wooden_kitchen_utensils.png",
       category_name: "Kitchen",
-      images: ["/hero1.png"]
+      images: ["/products/wooden_kitchen_utensils.png"]
     },
     {
       id: 8,
@@ -132,9 +133,9 @@ export default function ProductRecommendations({
       compare_at_price: 75,
       rating: 4.8,
       review_count: 267,
-      primary_image: "/hero1.png",
+      primary_image: "/products/organic_skincare_set.png",
       category_name: "Beauty",
-      images: ["/hero1.png"]
+      images: ["/products/organic_skincare_set.png"]
     }
   ];
 
@@ -213,21 +214,40 @@ export default function ProductRecommendations({
     return null;
   }
 
+  const bgImages = {
+    trending: "/hero-sustainable-products.jpg",
+    "new-arrivals": "/home.jpg",
+    "top-rated": "/fitness.jpg",
+    default: "/hero-sustainable-products.jpg"
+  };
+  const bgImage = bgImages[type] || bgImages.default;
+
   return (
-    <div className={`${className} relative py-8 sm:py-12`}>
-      <div className="absolute inset-0 bg-gradient-to-br from-[#f8f6f4] via-[#e8e4e1] to-[#ddd7d2] opacity-50 rounded-3xl"></div>
+    <div className={`${className} relative py-6 sm:py-8 overflow-hidden rounded-2xl`}>
+      <div className="absolute inset-0 overflow-hidden rounded-2xl">
+        <Image
+          src={bgImage}
+          alt=""
+          fill
+          loading="lazy"
+          className="object-cover opacity-20 blur-[2px] scale-105"
+          sizes="100vw"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-50/85 via-white/75 to-emerald-100/80 rounded-2xl"></div>
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-emerald-100/30 via-transparent to-transparent rounded-2xl"></div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {showTitle && (
-          <div className="text-center mb-8 sm:mb-12">
-            <h2 className="font-reem font-bold text-3xl sm:text-4xl lg:text-5xl text-[#1a4032] mb-4">
+          <div className="text-center mb-4 sm:mb-6">
+            <h2 className="font-reem font-bold text-2xl sm:text-3xl lg:text-4xl text-[#1a4032] mb-2">
               {displayTitle}
             </h2>
-            <div className="w-24 h-1 bg-eco-gradient rounded-full mx-auto"></div>
+            <div className="w-16 h-0.5 bg-eco-gradient rounded-full mx-auto"></div>
           </div>
         )}
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
           {products.map((product, index) => (
             <div 
               key={product.id}
@@ -235,7 +255,7 @@ export default function ProductRecommendations({
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <ProductCard 
-                imageUrl={product.primary_image || '/hero1.png'}
+                imageUrl={product.primary_image || '/products/eco_bamboo_water_bottle.png'}
                 category={product.category_name || 'Eco Products'}
                 title={product.name || 'Eco Product'}
                 description={product.short_description || 'Sustainable and eco-friendly product'}

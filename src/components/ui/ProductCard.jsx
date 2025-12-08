@@ -248,6 +248,7 @@ export default function ProductCard({
           src={productImages[currentImageIndex] || '/placeholder-product.jpg'}
           alt={title}
           fill
+          loading="lazy"
           className="object-cover transition-opacity duration-300"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />

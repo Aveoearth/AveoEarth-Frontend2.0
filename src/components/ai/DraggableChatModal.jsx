@@ -337,7 +337,7 @@ const DraggableChatModal = ({ isOpen, onClose, userType = "buyer", initialPositi
                 e.target.nextSibling.style.display = 'flex';
               }}
             >
-              <source src="/AveoBuddy.mp4" type="video/mp4" />
+              <source src="/AveoBuddy.webm" type="video/webm" />
             </video>
             <div className="w-10 h-10 rounded-full bg-white/20 items-center justify-center text-white hidden">
               <BotIcon />

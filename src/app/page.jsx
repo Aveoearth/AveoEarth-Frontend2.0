@@ -4,9 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import ProductCard from "../components/ui/ProductCard";
 import HotDealsSection from "../components/esg/HotDealsSection";
-// Replaced legacy TopCategoriesSection with inline Top Categories hover section
 import BestSellersSection from "../components/esg/BestSellersSection";
 import ProductRecommendations from "../components/search/ProductRecommendations";
+import TopPicksSection from "../components/home/TopPicksSection";
 import Button from "../components/ui/Button";
 import { useState, useEffect, useRef } from "react";
 import { ShoppingCart, ArrowLeft, ArrowRight } from "lucide-react";
@@ -414,7 +414,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-white relative overflow-hidden">
 
       {/* Hero Section - Similar to HeroSection.tsx */}
-      <section className="relative min-h-screen bg-gradient-to-br from-emerald-50 to-emerald-100 overflow-hidden flex items-start justify-center">
+      <section className="relative min-h-[85vh] bg-gradient-to-br from-emerald-50 to-emerald-100 overflow-hidden flex items-center justify-center">
         {/* Parallax Background */}
         <div className="absolute inset-0 parallax-layer">
           <Image
@@ -427,15 +427,15 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-white/50" />
         </div>
         
-        <div className="relative z-10 container mx-auto px-10 pt-24 pb-16" style={{ marginLeft: '30px', marginRight: '30px' }}>
-          <div className="grid lg:grid-cols-5 gap-12 items-center">
-            {/* Hero Content (left side, taking 2 of 5 columns) */}
-            <div className="lg:col-span-2 space-y-6 slide-up text-center lg:text-left -ml-5">
+        <div className="relative z-10 container mx-auto px-6 lg:px-10 pt-20 pb-16">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Left Side - Hero Content */}
+            <div className="space-y-6 slide-up text-center lg:text-left">
               <div className="space-y-4">
                 <h1 className="text-4xl lg:text-6xl font-bold text-gray-800 leading-tight">
                   Sustainability
                   <span className="text-emerald-700 block">Simplified</span>
-                  </h1>
+                </h1>
                 
                 <div className="h-12 flex items-center justify-center lg:justify-start">
                   <p
@@ -448,13 +448,13 @@ export default function HomePage() {
                 </div>
               </div>
               
-              <div className="flex flex-col gap-4 justify-center lg:justify-center items-center">
+              <div className="flex flex-col gap-4 justify-center lg:justify-start items-center lg:items-start">
                 <Button
                   as={Link}
                   href="/explore"
                   variant="primary"
                   size="lg"
-                  className="rounded-full gap-3 group hover:scale-105 transition-transform w-3/4 self-center"
+                  className="rounded-full gap-3 group hover:scale-105 transition-transform w-full max-w-xs"
                 >
                   Shop Collections
                   <ShoppingCart className="ml-2 w-5 h-5" />
@@ -464,125 +464,23 @@ export default function HomePage() {
                   href="/about"
                   variant="outline"
                   size="lg"
-                  className="rounded-full w-3/4 self-center"
+                  className="rounded-full w-full max-w-xs"
                 >
                   Become a Partner
                 </Button>
-            </div>
-
-          </div>
-          
-            {/* Top Eco Picks Carousel (right side, taking 3 of 5 columns) */}
-            <div className="lg:col-span-3 slide-up flex items-center justify-center">
-              <div className="space-y-4 w-full">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-xl font-bold text-gray-800 text-center lg:text-left">
-                    Top Picks
-                  </h2>
-                  <Button variant="ghost" className="text-emerald-700 hover:text-emerald-600 text-sm">
-                    View All  →
-                  </Button>
-          </div>
-          
-                {/* Hexagonal Honeycomb Grid with Side Navigation */}
-                <div className="relative flex items-center justify-center">
-                  {/* Left Navigation Button - Centered with the 2-row grid */}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={prevCarousel}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 z-10 text-emerald-700 hover:text-emerald-600 bg-white/80 backdrop-blur-sm shadow-lg"
-                    style={{ top: 'calc(50% - 20px)' }}
-                  >
-                    <ArrowLeft className="w-5 h-5" />
-                  </Button>
-                  
-                  {/* Right Navigation Button - Centered with the 2-row grid */}
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={nextCarousel}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 z-10 text-emerald-700 hover:text-emerald-600 bg-white/80 backdrop-blur-sm shadow-lg"
-                    style={{ top: 'calc(50% - 20px)' }}
-                  >
-                    <ArrowRight className="w-5 h-5" />
-                  </Button>
-                  
-                  {/* Hexagonal Grid - centered between arrows, 2 rows (4 + 3) */}
-                  <div className="honeycomb-grid mx-auto" style={{ marginLeft: '60px', marginRight: '60px' }}>
-                    {getVisibleProducts().map((product, index) => (
-                      <div 
-                        key={`${product.id}-${currentCarouselIndex}`}
-                        className={`hexagon-wrapper ${index % 2 === 0 ? 'hexagon-even' : 'hexagon-odd'}`}
-                        style={{
-                          '--hex-delay': `${index * 150}ms`,
-                          animationDelay: `${index * 150}ms`
-                        }}
-                      >
-                        <div className="hexagon-card group">
-                          {/* Product Image */}
-                          <div className="hexagon-image-container">
-                            <Image 
-                              src={product.images[cardImageIndexes[product.id] || 0]}
-                              alt={product.name}
-                              width={80}
-                              height={80}
-                              className="hexagon-image"
-                            />
-                            <div className="hexagon-eco-badge">
-                              <span className="text-xs">🌱</span>
-                              <span className="text-xs font-semibold">{product.ecoScore}</span>
-                            </div>
-                          </div>
-                          
-                          {/* Product Info */}
-                          <div className="hexagon-content">
-                            <h3 className="hexagon-title">{product.name}</h3>
-                            <div className="hexagon-price">
-                              <span className="price-current">{product.price}</span>
-                              <span className="price-original">{product.originalPrice}</span>
-                  </div>
-                </div>
-                
-                          {/* Hover Overlay */}
-                          <div className="hexagon-overlay">
-                            <Button
-                              variant="secondary"
-                              size="sm"
-                              className="hexagon-button"
-                            >
-                              <ShoppingCart className="w-3 h-3 mr-1" />
-                              Add
-                            </Button>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Dot Indicators */}
-                <div className="flex justify-center mt-6">
-                  <div className="flex space-x-2">
-                    {Array.from({ length: Math.ceil(topProducts.length / 7) }).map((_, index) => (
-                      <button
-                        key={index}
-                        onClick={() => setCurrentCarouselIndex(index)}
-                        className={`w-2 h-2 rounded-full transition-colors ${
-                          index === currentCarouselIndex ? 'bg-emerald-600' : 'bg-emerald-300'
-                        }`}
-                      />
-                    ))}
-                  </div>
-                </div>
-                  </div>
-                </div>
               </div>
             </div>
+            
+            {/* Right Side - Top Picks */}
+            <div className="slide-up">
+              <TopPicksSection compact={true} />
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Top Categories Section - Hover Bubbles with animations */}
-      <section className="py-16 bg-gray-50 mt-32">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-800 mb-4">Explore Our <span className="text-emerald-700">Categories</span></h2>
@@ -595,50 +493,75 @@ export default function HomePage() {
                 id: 'home-living', 
                 name: 'Home & Living', 
                 desc: 'Sustainable home essentials & decor', 
+                bgImage: '/home.jpg',
                 icon: (
                   <svg width="24" height="24" viewBox="0 0 18 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M8.5 0.5L17 5.5V16.5H11V10.5H6V16.5H0V5.5L8.5 0.5Z" fill="currentColor"/>
                   </svg>
                 ), 
                 color: 'text-emerald-700', 
-                badgeBg: 'bg-emerald-100' 
+                badgeBg: 'bg-emerald-100',
+                products: [
+                  {name: 'Bamboo Kitchen Set', price: '₹1,299', eco: 'Biodegradable'},
+                  {name: 'Recycled Glass Jars', price: '₹599', eco: 'Recycled'},
+                  {name: 'Natural Linen Pillow', price: '₹899', eco: 'Organic'}
+                ]
               },
               { 
                 id: 'fashion', 
                 name: 'Sustainable Fashion', 
                 desc: 'Ethically made clothing & accessories', 
+                bgImage: '/products/organic_cotton_t-shirt.png',
                 icon: (
                   <svg width="24" height="24" viewBox="0 0 25 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.1425 3.23573L15.2371 3.22876L15.3487 3.23274L15.4612 3.24967L15.5738 3.27955L21.55 5.27163C21.7296 5.33152 21.8885 5.44138 22.0079 5.58833C22.1273 5.73528 22.2024 5.91323 22.2243 6.10133L22.2313 6.21687V11.197C22.2312 11.441 22.1417 11.6765 21.9796 11.8588C21.8175 12.0411 21.5941 12.1576 21.3518 12.1861L21.2352 12.1931H19.2432V19.1653C19.2433 19.6679 19.0535 20.152 18.7118 20.5205C18.3701 20.889 17.9017 21.1147 17.4005 21.1524L17.2511 21.1574H7.29073C6.78815 21.1576 6.30409 20.9678 5.93557 20.626C5.56706 20.2843 5.34133 19.8159 5.30364 19.3147L5.29866 19.1653V12.1931H3.30658C3.06262 12.1931 2.82715 12.1035 2.64484 11.9414C2.46254 11.7793 2.34606 11.5559 2.31752 11.3136L2.31055 11.197V6.21687C2.31048 6.02747 2.36442 5.84197 2.46604 5.68214C2.56765 5.52231 2.71273 5.39476 2.88426 5.31446L2.99184 5.27163L8.96806 3.27955C9.11779 3.22968 9.27724 3.2161 9.43325 3.23994C9.58926 3.26378 9.73738 3.32435 9.86539 3.41667C9.9934 3.50898 10.0976 3.63039 10.1695 3.77089C10.2414 3.91139 10.2789 4.06697 10.2788 4.22479C10.2765 4.74172 10.4752 5.2393 10.833 5.61242C11.1908 5.98554 11.6796 6.20498 12.1962 6.22438C12.7127 6.24377 13.2166 6.06161 13.6013 5.71637C13.9861 5.37112 14.2216 4.88984 14.258 4.3742L14.267 4.13515L14.2839 4.0226L14.3208 3.88913L14.3646 3.78654L14.4144 3.6949L14.4821 3.60227L14.5508 3.52259C14.606 3.46946 14.6641 3.42298 14.7251 3.38314L14.8208 3.33035L14.9234 3.28653L15.0309 3.25465L15.1425 3.23573Z" fill="currentColor"/>
                   </svg>
                 ), 
                 color: 'text-orange-700', 
-                badgeBg: 'bg-orange-100' 
+                badgeBg: 'bg-orange-100',
+                products: [
+                  {name: 'Organic Cotton Tee', price: '₹1,199', eco: 'Organic'},
+                  {name: 'Hemp Tote Bag', price: '₹799', eco: 'Hemp'},
+                  {name: 'Linen Summer Dress', price: '₹2,499', eco: 'Natural'}
+                ]
               },
               { 
                 id: 'upcycled', 
                 name: 'Upcycled & Handmade', 
                 desc: 'Reclaimed material goods & crafts', 
+                bgImage: '/products/natural_jute_tote_bag.png',
                 icon: '🎨', 
                 color: 'text-purple-700', 
-                badgeBg: 'bg-purple-100' 
+                badgeBg: 'bg-purple-100',
+                products: [
+                  {name: 'Recycled Fabric Quilt', price: '₹3,499', eco: 'Upcycled'},
+                  {name: 'Handwoven Jute Rug', price: '₹1,899', eco: 'Handmade'},
+                  {name: 'Reclaimed Wood Frame', price: '₹699', eco: 'Reclaimed'}
+                ]
               },
               { 
                 id: 'beauty-personal-care', 
                 name: 'Clean Beauty', 
                 desc: 'Natural skincare & personal care', 
+                bgImage: '/beauty.jpg',
                 icon: (
                   <svg width="24" height="24" viewBox="0 0 19 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd" d="M1.59921 1.99719C2.53314 1.06355 3.79964 0.539062 5.1202 0.539062C6.44077 0.539062 7.70727 1.06355 8.64119 1.99719C8.8238 2.17914 9.05886 2.40557 9.34639 2.67649C9.63325 2.40557 9.86798 2.17914 10.0506 1.99719C10.9806 1.07155 12.2383 0.550334 13.5505 0.54682C14.8626 0.543306 16.1231 1.05778 17.0581 1.97843C17.993 2.89908 18.5269 4.15151 18.5436 5.46355C18.5603 6.77559 18.0585 8.04122 17.1473 8.98539L10.0496 16.0831C9.8628 16.2699 9.6095 16.3748 9.34539 16.3748C9.08128 16.3748 8.82798 16.2699 8.64119 16.0831L1.54344 8.98638C0.633098 8.04752 0.128575 6.78826 0.138825 5.48056C0.149075 4.17287 0.674271 2.92167 1.59921 1.99719Z" fill="currentColor"/>
                   </svg>
                 ), 
                 color: 'text-pink-700', 
-                badgeBg: 'bg-pink-100' 
+                badgeBg: 'bg-pink-100',
+                products: [
+                  {name: 'Organic Face Serum', price: '₹1,599', eco: 'Vegan'},
+                  {name: 'Natural Shampoo Bar', price: '₹449', eco: 'Plastic-Free'},
+                  {name: 'Herbal Body Lotion', price: '₹899', eco: 'Cruelty-Free'}
+                ]
               },
               { 
                 id: 'pets', 
                 name: 'Pets', 
                 desc: 'Eco-friendly pet care & accessories', 
+                bgImage: '/petcare.jpg',
                 icon: (
                   <svg viewBox="0 0 64 64" width="24" height="24" fill="currentColor" aria-hidden="true">
                     <circle cx="18" cy="22" r="6"/>
@@ -649,21 +572,38 @@ export default function HomePage() {
                   </svg>
                 ), 
                 color: 'text-amber-700', 
-                badgeBg: 'bg-amber-100' 
+                badgeBg: 'bg-amber-100',
+                products: [
+                  {name: 'Hemp Pet Collar', price: '₹599', eco: 'Natural'},
+                  {name: 'Organic Pet Treats', price: '₹349', eco: 'Organic'},
+                  {name: 'Bamboo Pet Bowl', price: '₹449', eco: 'Biodegradable'}
+                ]
               },
               { 
                 id: 'fitness', 
                 name: 'Fitness', 
                 desc: 'Sustainable fitness & wellness gear', 
+                bgImage: '/fitness.jpg',
                 icon: '💪', 
                 color: 'text-green-700', 
-                badgeBg: 'bg-green-100' 
+                badgeBg: 'bg-green-100',
+                products: [
+                  {name: 'Cork Yoga Mat', price: '₹2,199', eco: 'Natural Cork'},
+                  {name: 'Hemp Yoga Strap', price: '₹399', eco: 'Hemp'},
+                  {name: 'Bamboo Water Bottle', price: '₹899', eco: 'Reusable'}
+                ]
               },
             ].map((cat) => (
               <div key={cat.id} className="relative group">
                 <div className="bg-white border border-gray-100 rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                   <div className="relative h-48">
-                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-50 to-emerald-100" />
+                    <Image 
+                      src={cat.bgImage} 
+                      alt={cat.name}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
                     <div className="absolute inset-0 p-6 flex flex-col justify-end">
                       <div className="absolute top-4 left-4 w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow">
                         {typeof cat.icon === 'string' ? (
@@ -672,13 +612,13 @@ export default function HomePage() {
                           <div className={cat.color}>{cat.icon}</div>
                         )}
                       </div>
-                      <h3 className="text-xl font-bold text-gray-800">{cat.name}</h3>
-                      <p className="text-sm text-gray-600">{cat.desc}</p>
+                      <h3 className="text-xl font-bold text-white">{cat.name}</h3>
+                      <p className="text-sm text-white/90">{cat.desc}</p>
                     </div>
                   </div>
                 </div>
                 <div className="hidden group-hover:flex absolute top-0 left-[100%] z-20 flex-col items-center justify-center space-y-3" style={{ height: 212, width: 200, marginLeft: -110 }}>
-                  {[{name:'Product A', price:'₹299', eco:'Biodegradable'}, {name:'Product B', price:'₹899', eco:'Reusable'}, {name:'Product C', price:'₹549', eco:'Compostable'}].map((p, i) => (
+                  {cat.products.map((p, i) => (
                     <div key={p.name} className="bubble-emerge bg-white border border-gray-100 rounded-lg p-3 shadow-lg w-full hover:shadow-xl transition-shadow" style={{ animationDelay: `${i*80}ms` }}>
                       <div className="space-y-1">
                         <h4 className="font-semibold text-sm text-gray-800 truncate">{p.name}</h4>

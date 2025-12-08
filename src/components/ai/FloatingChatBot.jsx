@@ -26,15 +26,15 @@ const FloatingChatBot = () => {
       
       const modalWidth = 400;
       const modalHeight = 550;
-      const buttonSize = 160;
-      const margin = 24;
+      const marginRight = 24;
+      const marginBottom = 240;
       
-      const x = window.innerWidth - modalWidth - margin;
-      const y = window.innerHeight - modalHeight - buttonSize - margin - 24;
+      const x = window.innerWidth - modalWidth - marginRight;
+      const y = window.innerHeight - modalHeight - marginBottom;
       
       return {
-        x: Math.max(margin, x),
-        y: Math.max(margin, y)
+        x: Math.max(24, x),
+        y: Math.max(24, y)
       };
     };
     
@@ -66,13 +66,15 @@ const FloatingChatBot = () => {
         onClick={() => setIsChatOpen(!isChatOpen)}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        className={`fixed bottom-6 right-6 z-50 flex items-center justify-center group cursor-pointer transition-all duration-300 ${
+        className={`fixed z-50 flex items-center justify-center group cursor-pointer transition-all duration-300 ${
           isHovered ? 'scale-105' : 'scale-100'
         }`}
         title="Chat with AveoBuddy"
         style={{ 
-          width: isChatOpen ? '0' : '160px',
-          height: isChatOpen ? '0' : '160px',
+          bottom: '24px',
+          right: '24px',
+          width: isChatOpen ? '0' : '200px',
+          height: isChatOpen ? '0' : '200px',
           opacity: isChatOpen ? 0 : 1,
           pointerEvents: isChatOpen ? 'none' : 'auto',
           border: 'none', 
@@ -85,15 +87,15 @@ const FloatingChatBot = () => {
       >
         {!videoError ? (
           <video
-            src="/AveoBuddy.mp4"
-            width={160}
-            height={160}
+            src="/AveoBuddy.webm"
+            width={200}
+            height={200}
             autoPlay
             loop
             muted
             playsInline
             onError={() => {
-              console.error('Failed to load AveoBuddy.mp4');
+              console.error('Failed to load AveoBuddy.webm');
               setVideoError(true);
             }}
             className="w-full h-full object-contain"

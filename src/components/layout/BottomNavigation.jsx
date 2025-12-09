@@ -13,7 +13,7 @@ export default function BottomNavigation() {
       href: "/explore?category=home-living",
       label: "Home & Living",
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <path d="M9 22V12h6v10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -26,7 +26,7 @@ export default function BottomNavigation() {
       href: "/explore?category=fashion",
       label: "Fashion",
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.5 6.5L3 3m0 0l3.5 3.5M3 3l3.5-3.5M17.5 6.5L21 3m0 0l-3.5 3.5M21 3l-3.5-3.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
           <path d="M12 3v4m0 0a4 4 0 00-4 4v10h8V11a4 4 0 00-4-4z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
@@ -39,7 +39,7 @@ export default function BottomNavigation() {
       href: "/explore?category=upcycled",
       label: "Upcycled",
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <path d="M2 17l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <path d="M2 12l10 5 10-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -53,7 +53,7 @@ export default function BottomNavigation() {
       href: "/explore?category=beauty-personal-care",
       label: "Beauty",
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
       ),
@@ -65,7 +65,7 @@ export default function BottomNavigation() {
       href: "/explore?category=pets",
       label: "Pets",
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="6" cy="7" r="2.5" stroke="currentColor" strokeWidth="2"/>
           <circle cx="18" cy="7" r="2.5" stroke="currentColor" strokeWidth="2"/>
           <circle cx="10" cy="4" r="2" stroke="currentColor" strokeWidth="2"/>
@@ -81,7 +81,7 @@ export default function BottomNavigation() {
       href: "/explore?category=fitness",
       label: "Fitness",
       icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M6.5 6.5l11 11M6.5 17.5l11-11" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
           <path d="M4 8h2v8H4zM18 8h2v8h-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           <path d="M2 10h2v4H2zM20 10h2v4h-2z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -163,16 +163,16 @@ export default function BottomNavigation() {
         }
       `}</style>
       
-      <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none pb-4 px-3">
+      <div className="fixed bottom-0 left-0 right-0 z-50 pointer-events-none pb-3 px-2">
         <div className="flex justify-center">
           <div className="pointer-events-auto perspective-1000">
-            <div className="relative bg-white/80 backdrop-blur-2xl border border-white/40 rounded-[32px] p-3 shadow-2xl shadow-gray-900/20">
-              <div className="absolute inset-0 rounded-[32px] bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10 opacity-60" />
-              <div className="absolute inset-0 rounded-[32px] overflow-hidden">
+            <div className="relative bg-white/80 backdrop-blur-2xl border border-white/40 rounded-2xl p-2 shadow-xl shadow-gray-900/15">
+              <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10 opacity-60" />
+              <div className="absolute inset-0 rounded-2xl overflow-hidden">
                 <div className="absolute inset-0 shimmer-bg opacity-30" />
               </div>
               
-              <div className="relative flex items-center gap-2 sm:gap-3">
+              <div className="relative flex items-center gap-1.5 sm:gap-2">
                 {navItems.map((item, index) => {
                   const isActive = getIsActive(item.href);
                   const isHovered = hoveredIndex === index;
@@ -189,21 +189,21 @@ export default function BottomNavigation() {
                       <div 
                         className={`
                           nav-card-3d preserve-3d relative flex flex-col items-center justify-center 
-                          px-3 py-2.5 sm:px-4 sm:py-3 rounded-2xl
+                          px-2 py-1.5 sm:px-2.5 sm:py-2 rounded-xl
                           transition-all duration-300 ease-out cursor-pointer
                           ${isActive 
-                            ? `bg-gradient-to-br ${item.gradient} shadow-xl ${item.bgGlow}` 
-                            : 'bg-white/60 hover:bg-white/90 shadow-lg hover:shadow-xl'
+                            ? `bg-gradient-to-br ${item.gradient} shadow-lg ${item.bgGlow}` 
+                            : 'bg-white/60 hover:bg-white/90 shadow-md hover:shadow-lg'
                           }
                         `}
                       >
                         <div 
                           className={`
-                            relative w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-xl
+                            relative w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-lg
                             transition-all duration-300 preserve-3d
                             ${isActive 
                               ? 'text-white' 
-                              : `bg-gradient-to-br ${item.gradient} gradient-animate text-white shadow-lg ${item.bgGlow}`
+                              : `bg-gradient-to-br ${item.gradient} gradient-animate text-white shadow-md ${item.bgGlow}`
                             }
                             ${isHovered && !isActive ? 'icon-3d-rotate scale-110' : ''}
                           `}
@@ -226,20 +226,20 @@ export default function BottomNavigation() {
                           
                           {isActive && (
                             <>
-                              <div className="absolute -top-1 -right-1 w-3 h-3 bg-white rounded-full shadow-lg flex items-center justify-center">
-                                <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.gradient}`} />
+                              <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-white rounded-full shadow-md flex items-center justify-center">
+                                <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.gradient}`} />
                               </div>
-                              <div className="absolute inset-0 rounded-xl border-2 border-white/30" />
+                              <div className="absolute inset-0 rounded-lg border border-white/30" />
                             </>
                           )}
                         </div>
                         
                         <span 
                           className={`
-                            mt-1.5 text-[10px] sm:text-xs font-semibold text-center transition-all duration-300
+                            mt-1 text-[8px] sm:text-[9px] font-medium text-center transition-all duration-300
                             ${isActive 
                               ? 'text-white drop-shadow-sm' 
-                              : 'text-gray-700 group-hover:text-gray-900'
+                              : 'text-gray-600 group-hover:text-gray-800'
                             }
                           `}
                         >
@@ -251,14 +251,14 @@ export default function BottomNavigation() {
                         )}
 
                         {isActive && (
-                          <div className="absolute -bottom-1.5 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-white/80 shadow-lg" />
+                          <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-5 h-0.5 rounded-full bg-white/80 shadow-md" />
                         )}
                       </div>
 
                       {isHovered && !isActive && (
                         <div 
                           className={`
-                            absolute -bottom-2 left-1/2 -translate-x-1/2 w-12 h-3 rounded-full blur-md opacity-60
+                            absolute -bottom-1 left-1/2 -translate-x-1/2 w-8 h-2 rounded-full blur-sm opacity-50
                             bg-gradient-to-r ${item.gradient}
                           `}
                         />

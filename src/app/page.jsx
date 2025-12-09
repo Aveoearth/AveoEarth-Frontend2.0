@@ -494,23 +494,23 @@ export default function HomePage() {
                 </div>
               </div>
               
-              <div className="flex flex-col gap-4 justify-center lg:justify-start items-center lg:items-start">
+              <div className="flex flex-col gap-2 justify-center lg:justify-start items-center lg:items-start">
                 <Button
                   as={Link}
                   href="/explore"
                   variant="primary"
-                  size="lg"
-                  className="rounded-full gap-3 group hover:scale-105 transition-transform w-full max-w-xs"
+                  size="sm"
+                  className="rounded-full gap-2 group hover:scale-105 transition-transform text-sm px-5 py-2"
                 >
                   Shop Collections
-                  <ShoppingCart className="ml-2 w-5 h-5" />
+                  <ShoppingCart className="ml-1 w-4 h-4" />
                 </Button>
                 <Button
                   as={Link}
                   href="/about"
                   variant="outline"
-                  size="lg"
-                  className="rounded-full w-full max-w-xs"
+                  size="sm"
+                  className="rounded-full text-sm px-5 py-2"
                 >
                   Become a Partner
                 </Button>

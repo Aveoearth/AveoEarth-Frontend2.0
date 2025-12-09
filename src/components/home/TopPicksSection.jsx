@@ -12,7 +12,11 @@ const topPicksProducts = [
     name: "Eco Bamboo Water Bottle",
     price: "₹1,299",
     originalPrice: "₹1,599",
-    image: "/products/eco_bamboo_water_bottle.png",
+    images: [
+      "/products/eco_bamboo_water_bottle.png",
+      "/products/bamboo_water_bottle_product.png",
+      "/products/bamboo_bottle_alternate_view.png"
+    ],
     ecoScore: 95,
     badge: "Zero Waste"
   },
@@ -21,7 +25,11 @@ const topPicksProducts = [
     name: "Organic Cotton Bag Set",
     price: "₹899",
     originalPrice: "₹1,199",
-    image: "/products/organic_cotton_tote_bag.png",
+    images: [
+      "/products/organic_cotton_tote_bag.png",
+      "/products/organic_cotton_tote_bags.png",
+      "/products/cotton_bags_alternate_view.png"
+    ],
     ecoScore: 92,
     badge: "Organic"
   },
@@ -30,7 +38,11 @@ const topPicksProducts = [
     name: "Natural Skincare Bundle",
     price: "₹2,499",
     originalPrice: "₹3,199",
-    image: "/products/organic_skincare_set.png",
+    images: [
+      "/products/organic_skincare_set.png",
+      "/products/natural_skincare_bundle.png",
+      "/products/skincare_alternate_view.png"
+    ],
     ecoScore: 98,
     badge: "Cruelty-Free"
   },
@@ -39,7 +51,11 @@ const topPicksProducts = [
     name: "Sustainable Kitchen Set",
     price: "₹1,899",
     originalPrice: "₹2,399",
-    image: "/products/sustainable_kitchen_set.png",
+    images: [
+      "/products/sustainable_kitchen_set.png",
+      "/products/wooden_kitchen_utensils.png",
+      "/products/kitchen_set_alternate_view.png"
+    ],
     ecoScore: 94,
     badge: "Plastic-Free"
   },
@@ -48,7 +64,11 @@ const topPicksProducts = [
     name: "Recycled Glass Jars",
     price: "₹599",
     originalPrice: "₹799",
-    image: "/products/recycled_glass_jars.png",
+    images: [
+      "/products/recycled_glass_jars.png",
+      "/products/glass_jars_alternate_view.png",
+      "/products/stainless_steel_tumbler.png"
+    ],
     ecoScore: 96,
     badge: "Recycled"
   },
@@ -57,7 +77,11 @@ const topPicksProducts = [
     name: "Bamboo Cutlery Set",
     price: "₹399",
     originalPrice: "₹599",
-    image: "/products/bamboo_cutlery_set_product.png",
+    images: [
+      "/products/bamboo_cutlery_set_product.png",
+      "/products/bamboo_cutlery_set.png",
+      "/products/cutlery_set_alternate_view.png"
+    ],
     ecoScore: 93,
     badge: "Biodegradable"
   },
@@ -66,7 +90,11 @@ const topPicksProducts = [
     name: "Hemp Tote Bag",
     price: "₹799",
     originalPrice: "₹999",
-    image: "/products/hemp_tote_bag_product.png",
+    images: [
+      "/products/hemp_tote_bag_product.png",
+      "/products/hemp_bag_alternate_view.png",
+      "/products/natural_jute_tote_bag.png"
+    ],
     ecoScore: 91,
     badge: "Hemp"
   },
@@ -75,9 +103,65 @@ const topPicksProducts = [
     name: "Solar Phone Charger",
     price: "₹1,599",
     originalPrice: "₹2,199",
-    image: "/products/solar_phone_charger_product.png",
+    images: [
+      "/products/solar_phone_charger_product.png",
+      "/products/solar_phone_charger.png",
+      "/products/solar_charger_alternate_view.png"
+    ],
     ecoScore: 97,
     badge: "Solar"
+  },
+  {
+    id: 9,
+    name: "Reusable Beeswax Wraps",
+    price: "₹449",
+    originalPrice: "₹649",
+    images: [
+      "/products/beeswax_wraps_set.png",
+      "/products/beeswax_food_wraps_product.png",
+      "/products/beeswax_wraps_alternate_view.png"
+    ],
+    ecoScore: 94,
+    badge: "Zero Waste"
+  },
+  {
+    id: 10,
+    name: "Coconut Bowl Set",
+    price: "₹699",
+    originalPrice: "₹899",
+    images: [
+      "/products/coconut_bowl_set.png",
+      "/products/coconut_bowls_alternate_view.png",
+      "/products/bamboo_dinnerware_set.png"
+    ],
+    ecoScore: 92,
+    badge: "Natural"
+  },
+  {
+    id: 11,
+    name: "Organic Lip Balm",
+    price: "₹199",
+    originalPrice: "₹299",
+    images: [
+      "/products/organic_lip_balm_set.png",
+      "/products/lip_balm_alternate_view.png",
+      "/products/natural_moisturizer_cream.png"
+    ],
+    ecoScore: 96,
+    badge: "Organic"
+  },
+  {
+    id: 12,
+    name: "Eco Yoga Mat",
+    price: "₹1,999",
+    originalPrice: "₹2,599",
+    images: [
+      "/products/eco_yoga_mat_product.png",
+      "/products/yoga_mat_alternate_view.png",
+      "/products/hemp_fiber_yoga_mat.png"
+    ],
+    ecoScore: 93,
+    badge: "Recyclable"
   }
 ];
 
@@ -90,8 +174,7 @@ function EcoScoreBadge({ score, delay = 0, compact = false }) {
   };
 
   const colors = getScoreColor(score);
-  const size = compact ? "w-10 h-10" : "w-14 h-14";
-  const topPosition = compact ? "-top-4" : "-top-6";
+  const size = compact ? "w-8 h-8" : "w-14 h-14";
 
   return (
     <motion.div
@@ -102,7 +185,7 @@ function EcoScoreBadge({ score, delay = 0, compact = false }) {
         stiffness: 300, 
         damping: 20
       }}
-      className={`absolute ${topPosition} left-1/2 -translate-x-1/2 z-20`}
+      className={`absolute ${compact ? "top-2 right-2" : "-top-6 left-1/2 -translate-x-1/2"} z-20`}
     >
       <motion.div
         animate={{ 
@@ -131,12 +214,16 @@ function EcoScoreBadge({ score, delay = 0, compact = false }) {
 
 function ProductTile3D({ product, index, isActive, compact = false }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const cardRef = useRef(null);
+  const imageIntervalRef = useRef(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const rotateX = useTransform(mouseY, [-0.5, 0.5], [12, -12]);
   const rotateY = useTransform(mouseX, [-0.5, 0.5], [-12, 12]);
+
+  const images = product.images || [product.image];
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
@@ -147,14 +234,38 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
     mouseY.set((e.clientY - centerY) / rect.height);
   };
 
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    
+    if (images.length > 1) {
+      imageIntervalRef.current = setInterval(() => {
+        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      }, 800);
+    }
+  };
+
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
     setIsHovered(false);
+    setCurrentImageIndex(0);
+    
+    if (imageIntervalRef.current) {
+      clearInterval(imageIntervalRef.current);
+      imageIntervalRef.current = null;
+    }
   };
 
-  const imageHeight = compact ? "h-28" : "h-48";
-  const padding = compact ? "p-3" : "p-4";
+  useEffect(() => {
+    return () => {
+      if (imageIntervalRef.current) {
+        clearInterval(imageIntervalRef.current);
+      }
+    };
+  }, []);
+
+  const imageHeight = compact ? "h-24" : "h-48";
+  const padding = compact ? "p-2" : "p-4";
 
   return (
     <motion.div
@@ -173,12 +284,12 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
         delay: index * 0.05 
       }}
       onMouseMove={handleMouseMove}
-      onMouseEnter={() => setIsHovered(true)}
+      onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       className="relative"
       style={{ perspective: 800 }}
     >
-      <EcoScoreBadge score={product.ecoScore} delay={index * 0.08 + 0.2} compact={compact} />
+      {!compact && <EcoScoreBadge score={product.ecoScore} delay={index * 0.08 + 0.2} compact={compact} />}
       
       <motion.div
         style={{ 
@@ -195,19 +306,47 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
         />
         
         <div className={`relative ${imageHeight} bg-gradient-to-br from-gray-50 to-gray-100/50 overflow-hidden`}>
-          <motion.div
-            animate={isHovered ? { scale: 1.08 } : { scale: 1 }}
-            transition={{ duration: 0.4 }}
-            className="absolute inset-0"
-          >
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              loading="lazy"
-              className="object-contain p-3"
-            />
-          </motion.div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentImageIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1, scale: isHovered ? 1.08 : 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={images[currentImageIndex]}
+                alt={product.name}
+                fill
+                loading="lazy"
+                className="object-contain p-2"
+              />
+            </motion.div>
+          </AnimatePresence>
+          
+          {compact && (
+            <div className="absolute top-1.5 right-1.5 z-20">
+              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 flex items-center justify-center shadow-md border-2 border-white">
+                <div className="text-center">
+                  <span className="text-white font-bold text-[9px] leading-none">{product.ecoScore}</span>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {images.length > 1 && isHovered && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20">
+              {images.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                    idx === currentImageIndex ? "bg-emerald-500 w-3" : "bg-white/60"
+                  }`}
+                />
+              ))}
+            </div>
+          )}
           
           <motion.div
             initial={{ x: -80, opacity: 0 }}
@@ -215,7 +354,7 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
             transition={{ duration: 0.25 }}
             className="absolute top-2 left-2"
           >
-            <span className={`bg-emerald-500 text-white ${compact ? "text-[10px] px-2 py-0.5" : "text-xs px-3 py-1"} rounded-full font-medium shadow-md`}>
+            <span className={`bg-emerald-500 text-white ${compact ? "text-[8px] px-1.5 py-0.5" : "text-xs px-3 py-1"} rounded-full font-medium shadow-md`}>
               {product.badge}
             </span>
           </motion.div>
@@ -258,18 +397,19 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
 export default function TopPicksSection({ compact = false }) {
   const [currentSet, setCurrentSet] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const itemsPerPage = compact ? 4 : 4;
+  const [isHoveringSection, setIsHoveringSection] = useState(false);
+  const itemsPerPage = compact ? 6 : 4;
   const totalSets = Math.ceil(topPicksProducts.length / itemsPerPage);
 
   useEffect(() => {
-    if (!isAutoPlaying) return;
+    if (!isAutoPlaying || isHoveringSection) return;
     
     const interval = setInterval(() => {
       setCurrentSet((prev) => (prev + 1) % totalSets);
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [isAutoPlaying, totalSets]);
+  }, [isAutoPlaying, isHoveringSection, totalSets]);
 
   const getCurrentProducts = () => {
     const start = currentSet * itemsPerPage;
@@ -288,7 +428,11 @@ export default function TopPicksSection({ compact = false }) {
 
   if (compact) {
     return (
-      <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-white/50">
+      <div 
+        className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-xl border border-white/50"
+        onMouseEnter={() => setIsHoveringSection(true)}
+        onMouseLeave={() => setIsHoveringSection(false)}
+      >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <Sparkles className="w-5 h-5 text-emerald-500" />
@@ -319,8 +463,8 @@ export default function TopPicksSection({ compact = false }) {
             <ChevronRight className="w-4 h-4 text-gray-600" />
           </button>
 
-          <div className="px-6">
-            <div className="grid grid-cols-2 gap-3 pt-5">
+          <div className="px-4">
+            <div className="grid grid-cols-3 gap-2">
               {getCurrentProducts().map((product, index) => (
                 <ProductTile3D
                   key={`${currentSet}-${product.id}`}
@@ -353,7 +497,11 @@ export default function TopPicksSection({ compact = false }) {
   }
 
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section 
+      className="relative py-20 overflow-hidden"
+      onMouseEnter={() => setIsHoveringSection(true)}
+      onMouseLeave={() => setIsHoveringSection(false)}
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/50 via-white to-emerald-50/30" />
       
       <motion.div
@@ -459,7 +607,7 @@ export default function TopPicksSection({ compact = false }) {
           
           <motion.div
             initial={{ opacity: 0 }}
-            animate={{ opacity: isAutoPlaying ? 1 : 0 }}
+            animate={{ opacity: isAutoPlaying && !isHoveringSection ? 1 : 0 }}
             className="text-center mt-4 text-sm text-gray-400"
           >
             Auto-rotating every 3 seconds

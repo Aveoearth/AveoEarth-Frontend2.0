@@ -1,24 +1,87 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;500;600;700&display=swap');
 @import "tailwindcss";
 
+/* Tailwind v4 Theme - Custom Colors */
+@theme {
+  /* Olive Green - Plant Leaf Colors */
+  --color-olive-50: #f5f7f0;
+  --color-olive-100: #e8ecd8;
+  --color-olive-200: #d4dcb8;
+  --color-olive-300: #b8c98a;
+  --color-olive-400: #8fbc5a;
+  --color-olive-500: #6b8e23;
+  --color-olive-600: #556b2f;
+  --color-olive-700: #4a5d28;
+  --color-olive-800: #3d4a21;
+  --color-olive-900: #2d3718;
+
+  /* Soil Brown - Earth Colors */
+  --color-soil-50: #faf7f4;
+  --color-soil-100: #f0e6db;
+  --color-soil-200: #e0ccb8;
+  --color-soil-300: #c9a882;
+  --color-soil-400: #b08b5c;
+  --color-soil-500: #8b7355;
+  --color-soil-600: #6b5642;
+  --color-soil-700: #5c4033;
+  --color-soil-800: #4a3328;
+  --color-soil-900: #3d2a20;
+
+  /* Stone Colors */
+  --color-stone-50: #fafaf9;
+  --color-stone-100: #f5f5f4;
+  --color-stone-200: #e7e5e4;
+  --color-stone-300: #d6d3d1;
+  --color-stone-400: #a8a29e;
+  --color-stone-500: #78716c;
+  --color-stone-600: #57534e;
+  --color-stone-700: #44403c;
+  --color-stone-800: #292524;
+  --color-stone-900: #1c1917;
+
+  /* Amber Colors */
+  --color-amber-50: #fffbeb;
+  --color-amber-100: #fef3c7;
+  --color-amber-200: #fde68a;
+  --color-amber-300: #fcd34d;
+  --color-amber-400: #fbbf24;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #d97706;
+  --color-amber-700: #b45309;
+  --color-amber-800: #92400e;
+  --color-amber-900: #78350f;
+
+  /* Brand Colors */
+  --color-brand-50: #f5f7f0;
+  --color-brand-100: #e8ecd8;
+  --color-brand-200: #d4dcb8;
+  --color-brand-300: #b8c98a;
+  --color-brand-400: #8fbc5a;
+  --color-brand-500: #6b8e23;
+  --color-brand-600: #556b2f;
+  --color-brand-700: #4a5d28;
+  --color-brand-800: #3d4a21;
+  --color-brand-900: #2d3718;
+}
+
 :root {
   /* Core surface + text */
   --background: #ffffff;
   --foreground: #1f2937; /* Neutral gray-800 */
 
-  /* Brand - Sustainability Green Theme */
-  --color-brand-primary: #047857; /* Emerald-700 - Primary green */
-  --color-brand-secondary: #10b981; /* Emerald-500 - Secondary green */
+  /* Brand - Sustainability Nature Theme (Olive Green + Soil Brown) */
+  --color-brand-primary: #556b2f; /* Dark olive green - like plant leaves */
+  --color-brand-secondary: #6b8e23; /* Olive drab - classic leaf color */
 
-  /* Action tokens (Buttons, links) - All Green */
-  --action-primary: #059669; /* Emerald-600 */
-  --action-primary-hover: #047857; /* Emerald-700 */
-  --action-primary-active: #065f46; /* Emerald-800 */
+  /* Action tokens (Buttons, links) - Olive Green Theme */
+  --action-primary: #6b8e23; /* Olive drab */
+  --action-primary-hover: #556b2f; /* Dark olive green */
+  --action-primary-active: #4a5d28; /* Deep olive */
   --action-primary-inverted: #FFFFFF;
 
-  --action-secondary: #10b981; /* Emerald-500 */
-  --action-secondary-hover: #059669; /* Emerald-600 */
-  --action-secondary-active: #047857; /* Emerald-700 */
+  --action-secondary: #8b7355; /* Soil brown */
+  --action-secondary-hover: #6b5642; /* Rich earth */
+  --action-secondary-active: #5c4033; /* Dark earth */
   --action-secondary-inverted: #FFFFFF;
 
   --action-neutral: #9098A1;
@@ -61,24 +124,29 @@
   --status-error-bg: #FEEFEF;
   --status-info-bg: #EEF2FA;
 
-  /* Backward-compat aliases (map to new tokens) */
-  --color-green-primary: #047857; /* Emerald-700 */
-  --color-green-secondary: #059669; /* Emerald-600 */
-  --color-green-accent: #10b981; /* Emerald-500 */
-  --color-green-light: #d1fae5; /* Emerald-100 */
-  --color-green-subtle: #ecfdf5; /* Emerald-50 */
+  /* Backward-compat aliases (mapped to olive/soil) */
+  --color-green-primary: #556b2f; /* Dark olive */
+  --color-green-secondary: #6b8e23; /* Olive drab */
+  --color-green-accent: #8fbc5a; /* Light olive */
+  --color-green-light: #e8ecd8; /* Soft sage */
+  --color-green-subtle: #f5f7f0; /* Olive tint */
 
-  /* Eco color variables for components - Sustainability Theme */
-  --color-eco-primary: #047857; /* Emerald-700 */
-  --color-eco-secondary: #059669; /* Emerald-600 */
-  --color-eco-accent: #10b981; /* Emerald-500 */
-  --color-eco-light: #d1fae5; /* Emerald-100 */
-  --color-eco-subtle: #ecfdf5; /* Emerald-50 */
+  /* Eco color variables for components - Nature Theme */
+  --color-eco-primary: #556b2f; /* Dark olive (leaves) */
+  --color-eco-secondary: #6b8e23; /* Olive drab */
+  --color-eco-accent: #8fbc5a; /* Light olive */
+  --color-eco-light: #e8ecd8; /* Soft sage */
+  --color-eco-subtle: #f5f7f0; /* Olive tint */
   
-  /* Footer Theme - Green */
-  --footer-bg: #064e3b; /* Emerald-900 */
-  --footer-text: #ecfdf5; /* Emerald-50 */
-  --footer-border: #047857; /* Emerald-700 */
+  /* Soil/Earth colors */
+  --color-soil-primary: #8b7355; /* Medium soil */
+  --color-soil-dark: #5c4033; /* Dark earth */
+  --color-soil-light: #c9a882; /* Light sand */
+  
+  /* Footer Theme - Dark Olive/Earth */
+  --footer-bg: #3d4a21; /* Deep olive forest */
+  --footer-text: #f5f7f0; /* Light olive tint */
+  --footer-border: #556b2f; /* Dark olive */
 
   /* Legacy neutrals mapped to new scale for safety */
   --color-neutral-900: var(--color-neutral-black);
@@ -178,8 +246,8 @@ body {
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(45, 90, 49, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(45, 90, 49, 0.6); }
+  0%, 100% { box-shadow: 0 0 20px rgba(107, 142, 35, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(107, 142, 35, 0.6); }
 }
 
 @keyframes slide-in-up {
@@ -243,22 +311,22 @@ body {
 }
 
 .glass-green {
-  background: rgba(45, 90, 49, 0.1);
+  background: rgba(107, 142, 35, 0.1);
   backdrop-filter: blur(15px);
-  border: 1px solid rgba(107, 144, 128, 0.3);
+  border: 1px solid rgba(85, 107, 47, 0.3);
 }
 
-/* Modern Shadows */
+/* Modern Shadows - Olive/Earth tones */
 .shadow-eco {
-  box-shadow: 0 10px 30px rgba(45, 90, 49, 0.2);
+  box-shadow: 0 10px 30px rgba(107, 142, 35, 0.2);
 }
 
 .shadow-eco-lg {
-  box-shadow: 0 20px 60px rgba(45, 90, 49, 0.3);
+  box-shadow: 0 20px 60px rgba(107, 142, 35, 0.3);
 }
 
 .shadow-glow {
-  box-shadow: 0 0 30px rgba(107, 144, 128, 0.4);
+  box-shadow: 0 0 30px rgba(139, 115, 85, 0.4);
 }
 
 /* Gradient Backgrounds */
@@ -296,11 +364,11 @@ body {
 
 .hover-lift:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(45, 90, 49, 0.2);
+  box-shadow: 0 20px 40px rgba(107, 142, 35, 0.2);
 }
 
 .hover-glow:hover {
-  box-shadow: 0 0 30px rgba(107, 144, 128, 0.6);
+  box-shadow: 0 0 30px rgba(139, 115, 85, 0.6);
   transform: scale(1.02);
 }
 

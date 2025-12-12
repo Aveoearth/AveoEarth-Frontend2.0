@@ -5,10 +5,29 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import dynamic from "next/dynamic";
 import { auth, tokens } from "../../lib/api";
 import UserProfilePopup from "../ui/UserProfilePopup";
 import MiniCart from "../cart/MiniCart";
 import { useCart } from "../../hooks/useCart";
+import { useChatBot } from "../../context/ChatBotContext";
+import RotatingEarthIcon from "../ai/RotatingEarthIcon";
+
+const ArtisanTicker = dynamic(() => import("./ArtisanTicker"), { 
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center w-full h-[80px] bg-gradient-to-r from-amber-50 via-stone-100 to-amber-50 border-b border-stone-200 overflow-hidden">
+      <div className="flex items-center gap-6 animate-pulse">
+        {[...Array(7)].map((_, i) => (
+          <div key={i} className="flex flex-col items-center">
+            <div className="w-[60px] h-[60px] rounded-md bg-stone-200/70" />
+            <div className="mt-1 w-12 h-2 bg-stone-200/70 rounded" />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+});
 
 const SearchIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -72,7 +91,7 @@ const VendorProfile = ({ isLoggedIn, userProfile }) => {
               <path d="M13.73 21a2 2 0 0 1-3.46 0" stroke="#666" strokeWidth="2" strokeLinecap="round"/>
             </svg>
           </div>
-          <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-[9px] rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold">6</span>
+          <span className="absolute -top-1 -right-1 bg-olive-500 text-white text-[9px] rounded-full w-3.5 h-3.5 flex items-center justify-center font-bold">6</span>
         </motion.div>
       )}
       
@@ -83,7 +102,7 @@ const VendorProfile = ({ isLoggedIn, userProfile }) => {
             onClick={() => setIsVendorPopupOpen(!isVendorPopupOpen)}
             whileHover={{ scale: 1.02 }}
           >
-            <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-full overflow-hidden bg-gradient-to-br from-olive-400 to-olive-600 flex items-center justify-center">
               {userProfile?.avatar_url ? (
                 <img src={userProfile.avatar_url} alt="Profile" className="w-full h-full object-cover"/>
               ) : (
@@ -114,7 +133,7 @@ const VendorProfile = ({ isLoggedIn, userProfile }) => {
               >
                 <Link 
                   href="/vendor/dashboard" 
-                  className="flex items-center px-3 py-2 text-[11px] text-gray-700 hover:bg-emerald-50 transition-colors"
+                  className="flex items-center px-3 py-2 text-[11px] text-gray-700 hover:bg-olive-50 transition-colors"
                   onClick={() => setIsVendorPopupOpen(false)}
                 >
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" className="mr-2">
@@ -143,7 +162,7 @@ const VendorProfile = ({ isLoggedIn, userProfile }) => {
         </div>
       ) : (
         <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.98 }}>
-          <Link href="/signup" className="bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-4 py-1.5 rounded-full text-[11px] font-medium transition-all shadow-sm hover:shadow-md">
+          <Link href="/signup" className="bg-gradient-to-r from-olive-500 to-olive-600 hover:from-olive-600 hover:to-olive-700 text-white px-4 py-1.5 rounded-full text-[11px] font-medium transition-all shadow-sm hover:shadow-md">
             Join Community
           </Link>
         </motion.div>
@@ -155,14 +174,14 @@ const VendorProfile = ({ isLoggedIn, userProfile }) => {
 const NavLink = ({ href, children, isActive }) => (
   <Link href={href}>
     <motion.span 
-      className={`relative text-[13px] font-medium cursor-pointer transition-colors ${isActive ? 'text-emerald-600' : 'text-gray-600 hover:text-emerald-600'}`}
+      className={`relative text-[13px] font-medium cursor-pointer transition-colors ${isActive ? 'text-olive-600' : 'text-gray-600 hover:text-olive-600'}`}
       whileHover={{ y: -1 }}
     >
       {children}
       {isActive && (
         <motion.div 
           layoutId="activeNav"
-          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-emerald-500 rounded-full"
+          className="absolute -bottom-1 left-0 right-0 h-0.5 bg-olive-500 rounded-full"
         />
       )}
     </motion.span>
@@ -177,11 +196,14 @@ export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [showTicker, setShowTicker] = useState(true);
   const { cart } = useCart();
+  const { isMinimized, restoreFromNavbar, isAnimating } = useChatBot();
   const pathname = usePathname();
   const router = useRouter();
   
   const isVendorDashboard = pathname?.startsWith('/vendor');
+  const isHomePage = pathname === '/';
 
   const navItems = [
     { href: "/category", label: "Categories" },
@@ -235,26 +257,25 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isHomePage) {
+      setShowTicker(false);
+      return;
+    }
+    
+    const handleScroll = () => {
+      const heroHeight = window.innerHeight * 0.85;
+      setShowTicker(window.scrollY < heroHeight - 100);
+    };
+    
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHomePage]);
+
   return (
     <div className="w-full fixed top-0 left-0 z-50">
-      {!isVendorDashboard && (
-        <div className="bg-gradient-to-r from-emerald-600 via-emerald-700 to-emerald-600 text-white h-7 flex items-center overflow-hidden relative">
-          <motion.div 
-            className="flex items-center whitespace-nowrap text-xs"
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          >
-            <span className="inline-flex items-center gap-1.5 px-6"><span className="text-emerald-300">★</span> 2,847 trees planted this month</span>
-            <span className="inline-flex items-center gap-1.5 px-6"><span className="text-emerald-300">◎</span> 15.2T CO₂ offset</span>
-            <span className="inline-flex items-center gap-1.5 px-6"><span className="text-emerald-300">♻</span> 500K+ plastic items saved</span>
-            <span className="inline-flex items-center gap-1.5 px-6"><span className="text-emerald-300">🌱</span> Free shipping on orders above ₹999</span>
-            <span className="inline-flex items-center gap-1.5 px-6"><span className="text-emerald-300">★</span> 2,847 trees planted this month</span>
-            <span className="inline-flex items-center gap-1.5 px-6"><span className="text-emerald-300">◎</span> 15.2T CO₂ offset</span>
-            <span className="inline-flex items-center gap-1.5 px-6"><span className="text-emerald-300">♻</span> 500K+ plastic items saved</span>
-            <span className="inline-flex items-center gap-1.5 px-6"><span className="text-emerald-300">🌱</span> Free shipping on orders above ₹999</span>
-          </motion.div>
-        </div>
-      )}
+      {!isVendorDashboard && showTicker && <ArtisanTicker />}
 
       <div className="bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 h-12 flex items-center justify-between">
@@ -266,7 +287,7 @@ export default function Navbar() {
               >
                 <Image src="/logo.png" alt="AveoEarth" width={24} height={24} className="w-full h-full object-contain" />
               </motion.div>
-              <span className="text-base font-semibold bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent hidden sm:block">
+              <span className="text-base font-semibold bg-gradient-to-r from-olive-600 to-olive-700 bg-clip-text text-transparent hidden sm:block">
                 AveoEarth
               </span>
             </Link>
@@ -293,7 +314,7 @@ export default function Navbar() {
                 className={`hidden md:flex items-center transition-all duration-300 ${isSearchFocused ? 'w-56' : 'w-44'}`}
                 animate={{ width: isSearchFocused ? 224 : 176 }}
               >
-                <div className={`flex items-center w-full bg-gray-50 rounded-full px-3 py-1.5 border transition-all duration-200 ${isSearchFocused ? 'border-emerald-300 shadow-sm' : 'border-transparent'}`}>
+                <div className={`flex items-center w-full bg-gray-50 rounded-full px-3 py-1.5 border transition-all duration-200 ${isSearchFocused ? 'border-olive-300 shadow-sm' : 'border-transparent'}`}>
                   <SearchIcon />
                   <input
                     type="text"
@@ -318,7 +339,7 @@ export default function Navbar() {
                     <div className="relative">
                       <motion.button 
                         onClick={() => setIsUserPopupOpen(!isUserPopupOpen)}
-                        className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:text-emerald-600 hover:bg-emerald-50 transition-colors"
+                        className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 hover:text-olive-600 hover:bg-olive-50 transition-colors"
                         whileHover={{ scale: 1.1 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -337,6 +358,34 @@ export default function Navbar() {
                 )}
               </>
             )}
+
+            <AnimatePresence>
+              {isMinimized && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0, x: 100, y: 100, rotateY: -720 }}
+                  animate={{ opacity: 1, scale: 1, x: 0, y: 0, rotateY: 0 }}
+                  exit={{ opacity: 0, scale: 0.5, y: 50 }}
+                  transition={{ 
+                    duration: 0.6, 
+                    ease: [0.4, 0, 0.2, 1],
+                    rotateY: { duration: 0.8 }
+                  }}
+                  className="relative"
+                  style={{ perspective: '1000px' }}
+                >
+                  <RotatingEarthIcon 
+                    size={32} 
+                    onClick={restoreFromNavbar}
+                    className="hover:scale-110 transition-transform"
+                  />
+                  <motion.div
+                    className="absolute -top-1 -right-1 w-2 h-2 bg-olive-500 rounded-full"
+                    animate={{ scale: [1, 1.3, 1], opacity: [0.8, 1, 0.8] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                  />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {!isVendorDashboard && (
               <motion.button
@@ -382,7 +431,7 @@ export default function Navbar() {
                   <Link 
                     href={item.href}
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="block py-2 text-[12px] text-gray-700 hover:text-emerald-600 font-medium transition-colors"
+                    className="block py-2 text-[12px] text-gray-700 hover:text-olive-600 font-medium transition-colors"
                   >
                     {item.label}
                   </Link>

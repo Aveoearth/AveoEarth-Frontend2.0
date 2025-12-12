@@ -5,6 +5,7 @@ import { motion, AnimatePresence, useMotionValue, useTransform } from "framer-mo
 import Image from "next/image";
 import Link from "next/link";
 import { ShoppingCart, ChevronLeft, ChevronRight, Sparkles } from "lucide-react";
+import EcoScoreCircle from "../ui/EcoScoreCircle";
 
 const topPicksProducts = [
   {
@@ -165,65 +166,18 @@ const topPicksProducts = [
   }
 ];
 
-function EcoScoreBadge({ score, delay = 0, compact = false }) {
-  const getScoreColor = (score) => {
-    if (score >= 95) return { bg: "from-emerald-400 to-green-500", glow: "rgba(16, 185, 129, 0.6)" };
-    if (score >= 90) return { bg: "from-green-400 to-emerald-500", glow: "rgba(34, 197, 94, 0.5)" };
-    if (score >= 85) return { bg: "from-lime-400 to-green-500", glow: "rgba(132, 204, 22, 0.5)" };
-    return { bg: "from-yellow-400 to-lime-500", glow: "rgba(250, 204, 21, 0.5)" };
-  };
-
-  const colors = getScoreColor(score);
-  const size = compact ? "w-8 h-8" : "w-14 h-14";
-
-  return (
-    <motion.div
-      initial={{ scale: 1, y: 0 }}
-      animate={{ scale: 1, y: 0 }}
-      transition={{ 
-        type: "spring", 
-        stiffness: 300, 
-        damping: 20
-      }}
-      className={`absolute ${compact ? "top-2 right-2" : "-top-6 left-1/2 -translate-x-1/2"} z-20`}
-    >
-      <motion.div
-        animate={{ 
-          boxShadow: [
-            `0 0 15px ${colors.glow}`,
-            `0 0 30px ${colors.glow}`,
-            `0 0 15px ${colors.glow}`
-          ]
-        }}
-        transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        className={`${size} rounded-full bg-gradient-to-br ${colors.bg} flex items-center justify-center shadow-xl border-3 border-white`}
-      >
-        <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute inset-0 rounded-full border-2 border-dashed border-white/30"
-        />
-        <div className="text-center">
-          <span className={`text-white font-bold ${compact ? "text-xs" : "text-sm"} drop-shadow-lg`}>{score}</span>
-          <span className={`text-white/90 ${compact ? "text-[6px]" : "text-[8px]"} block -mt-0.5`}>ECO</span>
-        </div>
-      </motion.div>
-    </motion.div>
-  );
-}
 
 function ProductTile3D({ product, index, isActive, compact = false }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const cardRef = useRef(null);
-  const imageIntervalRef = useRef(null);
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
 
   const rotateX = useTransform(mouseY, [-0.5, 0.5], [12, -12]);
   const rotateY = useTransform(mouseX, [-0.5, 0.5], [-12, 12]);
 
-  const images = product.images || [product.image];
+  const productImage = product.images?.[0] || product.image;
 
   const handleMouseMove = (e) => {
     if (!cardRef.current) return;
@@ -236,33 +190,13 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
 
   const handleMouseEnter = () => {
     setIsHovered(true);
-    
-    if (images.length > 1) {
-      imageIntervalRef.current = setInterval(() => {
-        setCurrentImageIndex((prev) => (prev + 1) % images.length);
-      }, 800);
-    }
   };
 
   const handleMouseLeave = () => {
     mouseX.set(0);
     mouseY.set(0);
     setIsHovered(false);
-    setCurrentImageIndex(0);
-    
-    if (imageIntervalRef.current) {
-      clearInterval(imageIntervalRef.current);
-      imageIntervalRef.current = null;
-    }
   };
-
-  useEffect(() => {
-    return () => {
-      if (imageIntervalRef.current) {
-        clearInterval(imageIntervalRef.current);
-      }
-    };
-  }, []);
 
   const imageHeight = compact ? "h-24" : "h-48";
   const padding = compact ? "p-2" : "p-4";
@@ -289,7 +223,11 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
       className="relative"
       style={{ perspective: 800 }}
     >
-      {!compact && <EcoScoreBadge score={product.ecoScore} delay={index * 0.08 + 0.2} compact={compact} />}
+      {!compact && (
+        <div className="absolute -top-6 left-1/2 -translate-x-1/2 z-20">
+          <EcoScoreCircle score={product.ecoScore} size="large" />
+        </div>
+      )}
       
       <motion.div
         style={{ 
@@ -302,49 +240,34 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
         className="relative bg-white/95 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg border border-gray-100/50 cursor-pointer group"
       >
         <motion.div
-          className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+          className="absolute inset-0 bg-gradient-to-br from-olive-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         />
         
         <div className={`relative ${imageHeight} bg-gradient-to-br from-gray-50 to-gray-100/50 overflow-hidden`}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentImageIndex}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1, scale: isHovered ? 1.08 : 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={images[currentImageIndex]}
-                alt={product.name}
-                fill
-                loading="lazy"
-                className="object-contain p-2"
-              />
-            </motion.div>
-          </AnimatePresence>
+          {!imageLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-50 animate-pulse">
+              <div className="w-16 h-16 rounded-full bg-gray-200/70" />
+            </div>
+          )}
+          <motion.div
+            animate={{ opacity: imageLoaded ? 1 : 0, scale: isHovered ? 1.08 : 1 }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={productImage}
+              alt={product.name}
+              fill
+              priority
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover"
+              onLoad={() => setImageLoaded(true)}
+            />
+          </motion.div>
           
           {compact && (
             <div className="absolute top-1.5 right-1.5 z-20">
-              <div className="w-7 h-7 rounded-full bg-gradient-to-br from-emerald-400 to-green-500 flex items-center justify-center shadow-md border-2 border-white">
-                <div className="text-center">
-                  <span className="text-white font-bold text-[9px] leading-none">{product.ecoScore}</span>
-                </div>
-              </div>
-            </div>
-          )}
-          
-          {images.length > 1 && isHovered && (
-            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-20">
-              {images.map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
-                    idx === currentImageIndex ? "bg-emerald-500 w-3" : "bg-white/60"
-                  }`}
-                />
-              ))}
+              <EcoScoreCircle score={product.ecoScore} size="small" />
             </div>
           )}
           
@@ -354,7 +277,7 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
             transition={{ duration: 0.25 }}
             className="absolute top-2 left-2"
           >
-            <span className={`bg-emerald-500 text-white ${compact ? "text-[8px] px-1.5 py-0.5" : "text-xs px-3 py-1"} rounded-full font-medium shadow-md`}>
+            <span className={`bg-olive-500 text-white ${compact ? "text-[8px] px-1.5 py-0.5" : "text-xs px-3 py-1"} rounded-full font-medium shadow-md`}>
               {product.badge}
             </span>
           </motion.div>
@@ -365,18 +288,18 @@ function ProductTile3D({ product, index, isActive, compact = false }) {
             transition={{ type: "spring", stiffness: 400 }}
             className="absolute bottom-2 right-2"
           >
-            <button className={`${compact ? "w-8 h-8" : "w-10 h-10"} bg-emerald-500 hover:bg-emerald-600 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform`}>
+            <button className={`${compact ? "w-8 h-8" : "w-10 h-10"} bg-olive-500 hover:bg-olive-600 rounded-full flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform`}>
               <ShoppingCart className={`${compact ? "w-4 h-4" : "w-5 h-5"} text-white`} />
             </button>
           </motion.div>
         </div>
 
         <div className={padding}>
-          <h3 className={`font-semibold text-gray-800 ${compact ? "text-xs" : "text-sm"} mb-1 line-clamp-1 group-hover:text-emerald-700 transition-colors`}>
+          <h3 className={`font-semibold text-gray-800 ${compact ? "text-xs" : "text-sm"} mb-1 line-clamp-1 group-hover:text-olive-700 transition-colors`}>
             {product.name}
           </h3>
           <div className="flex items-center gap-2">
-            <span className={`${compact ? "text-sm" : "text-lg"} font-bold text-emerald-600`}>{product.price}</span>
+            <span className={`${compact ? "text-sm" : "text-lg"} font-bold text-olive-600`}>{product.price}</span>
             <span className={`${compact ? "text-xs" : "text-sm"} text-gray-400 line-through`}>{product.originalPrice}</span>
           </div>
         </div>
@@ -398,7 +321,7 @@ export default function TopPicksSection({ compact = false }) {
   const [currentSet, setCurrentSet] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [isHoveringSection, setIsHoveringSection] = useState(false);
-  const itemsPerPage = compact ? 6 : 4;
+  const itemsPerPage = compact ? 8 : 4;
   const totalSets = Math.ceil(topPicksProducts.length / itemsPerPage);
 
   useEffect(() => {
@@ -435,14 +358,14 @@ export default function TopPicksSection({ compact = false }) {
       >
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-5 h-5 text-emerald-500" />
+            <Sparkles className="w-5 h-5 text-olive-500" />
             <h2 className="text-lg font-bold text-gray-800">
-              Top <span className="text-emerald-600">Eco Picks</span>
+              Top <span className="text-olive-600">Eco Picks</span>
             </h2>
           </div>
           <Link 
             href="/explore"
-            className="text-sm text-emerald-600 hover:text-emerald-700 font-medium"
+            className="text-sm text-olive-600 hover:text-olive-700 font-medium"
           >
             View All →
           </Link>
@@ -451,20 +374,20 @@ export default function TopPicksSection({ compact = false }) {
         <div className="relative">
           <button
             onClick={prevSet}
-            className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-200 hover:border-emerald-300 transition-colors"
+            className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-200 hover:border-olive-300 transition-colors"
           >
             <ChevronLeft className="w-4 h-4 text-gray-600" />
           </button>
 
           <button
             onClick={nextSet}
-            className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-200 hover:border-emerald-300 transition-colors"
+            className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 w-8 h-8 bg-white rounded-full shadow-lg flex items-center justify-center border border-gray-200 hover:border-olive-300 transition-colors"
           >
             <ChevronRight className="w-4 h-4 text-gray-600" />
           </button>
 
           <div className="px-4">
-            <div className="grid grid-cols-3 gap-2">
+            <div className="grid grid-cols-4 gap-2">
               {getCurrentProducts().map((product, index) => (
                 <ProductTile3D
                   key={`${currentSet}-${product.id}`}
@@ -486,7 +409,7 @@ export default function TopPicksSection({ compact = false }) {
                   setCurrentSet(index);
                 }}
                 className={`h-2 rounded-full transition-all duration-300 ${
-                  index === currentSet ? "w-6 bg-emerald-500" : "w-2 bg-gray-300 hover:bg-emerald-300"
+                  index === currentSet ? "w-6 bg-olive-500" : "w-2 bg-gray-300 hover:bg-olive-300"
                 }`}
               />
             ))}
@@ -502,7 +425,7 @@ export default function TopPicksSection({ compact = false }) {
       onMouseEnter={() => setIsHoveringSection(true)}
       onMouseLeave={() => setIsHoveringSection(false)}
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-emerald-50/50 via-white to-emerald-50/30" />
+      <div className="absolute inset-0 bg-gradient-to-b from-olive-50/50 via-white to-olive-50/30" />
       
       <motion.div
         animate={{
@@ -529,10 +452,10 @@ export default function TopPicksSection({ compact = false }) {
             transition={{ duration: 2, repeat: Infinity }}
             className="inline-block mb-4"
           >
-            <Sparkles className="w-8 h-8 text-emerald-500" />
+            <Sparkles className="w-8 h-8 text-olive-500" />
           </motion.div>
           <h2 className="text-4xl lg:text-5xl font-extrabold text-gray-800 mb-4">
-            Top <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">Eco Picks</span>
+            Top <span className="text-transparent bg-clip-text bg-gradient-to-r from-olive-500 to-olive-600">Eco Picks</span>
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Discover our most loved sustainable products, handpicked for conscious shoppers
@@ -544,7 +467,7 @@ export default function TopPicksSection({ compact = false }) {
             whileHover={{ scale: 1.1, x: -5 }}
             whileTap={{ scale: 0.95 }}
             onClick={prevSet}
-            className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center border border-gray-100 hover:border-emerald-300 transition-colors"
+            className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center border border-gray-100 hover:border-olive-300 transition-colors"
           >
             <ChevronLeft className="w-6 h-6 text-gray-600" />
           </motion.button>
@@ -553,7 +476,7 @@ export default function TopPicksSection({ compact = false }) {
             whileHover={{ scale: 1.1, x: 5 }}
             whileTap={{ scale: 0.95 }}
             onClick={nextSet}
-            className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center border border-gray-100 hover:border-emerald-300 transition-colors"
+            className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 z-20 w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center border border-gray-100 hover:border-olive-300 transition-colors"
           >
             <ChevronRight className="w-6 h-6 text-gray-600" />
           </motion.button>
@@ -591,13 +514,13 @@ export default function TopPicksSection({ compact = false }) {
                   setCurrentSet(index);
                 }}
                 className={`relative h-3 rounded-full transition-all duration-300 ${
-                  index === currentSet ? "w-10 bg-emerald-500" : "w-3 bg-gray-300 hover:bg-emerald-300"
+                  index === currentSet ? "w-10 bg-olive-500" : "w-3 bg-gray-300 hover:bg-olive-300"
                 }`}
               >
                 {index === currentSet && (
                   <motion.div
                     layoutId="activeDot"
-                    className="absolute inset-0 bg-emerald-500 rounded-full"
+                    className="absolute inset-0 bg-olive-500 rounded-full"
                     transition={{ type: "spring", stiffness: 300, damping: 30 }}
                   />
                 )}
@@ -622,7 +545,7 @@ export default function TopPicksSection({ compact = false }) {
         >
           <Link 
             href="/explore"
-            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-emerald-500 to-green-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-olive-500 to-olive-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
           >
             <span>View All Products</span>
             <motion.span

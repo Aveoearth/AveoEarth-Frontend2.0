@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useCart } from "../../hooks/useCart";
 import { useAuth } from "../../hooks/useAuth";
 import { Check, Minus, Plus } from "lucide-react";
+import EcoScoreCircle from "./EcoScoreCircle";
 
 // Star Rating Component
 function StarRating({ rating = 4.9, reviews = 524 }) {
@@ -44,7 +45,7 @@ function ProgressDots({ images = [], currentIndex = 0, isHovered = false }) {
         <div 
           key={index}
           className={`basis-0 grow h-[5.976px] min-h-px min-w-px rounded-[49.802px] shrink-0 transition-colors duration-300 ${
-            index === currentIndex ? 'bg-emerald-600' : 'bg-gray-200'
+            index === currentIndex ? 'bg-olive-600' : 'bg-gray-200'
           }`} 
         />
       ))}
@@ -54,9 +55,9 @@ function ProgressDots({ images = [], currentIndex = 0, isHovered = false }) {
 
 // Add to Cart Button Component
 function AddButton({ variant = "dark", onClick, disabled = false }) {
-  const bgColor = variant === "dark" ? "bg-gray-800" : "bg-emerald-600";
-  const hoverBgColor = variant === "dark" ? "hover:bg-gray-900" : "hover:bg-emerald-700";
-  const borderColor = variant === "dark" ? "border-gray-700" : "border-emerald-600";
+  const bgColor = variant === "dark" ? "bg-gray-800" : "bg-olive-600";
+  const hoverBgColor = variant === "dark" ? "hover:bg-gray-900" : "hover:bg-olive-700";
+  const borderColor = variant === "dark" ? "border-gray-700" : "border-olive-600";
   
   const handleClick = (e) => {
     e.stopPropagation(); // Prevent event bubbling to parent card
@@ -105,7 +106,8 @@ export default function ProductCard({
   className = "", // Additional classes
   slug, // Product slug for navigation
   productId, // Product ID for navigation
-  inStock = true // Add inStock prop, default true
+  inStock = true, // Add inStock prop, default true
+  ecoScore = null // Eco score for the product
 }) {
   const router = useRouter();
   const { addToCart, updateCartItem } = useCart();
@@ -252,6 +254,11 @@ export default function ProductCard({
           className="object-cover transition-opacity duration-300"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
+        {ecoScore && (
+          <div className="absolute top-3 right-3 z-20">
+            <EcoScoreCircle score={ecoScore} size="default" />
+          </div>
+        )}
       </div>
 
       {/* Card Content - using flexbox to push price section to bottom */}
@@ -306,8 +313,8 @@ export default function ProductCard({
 
           {/* Add Button or Quantity Controls */}
           {addedToCart ? (
-            <div className="flex items-center gap-2 bg-emerald-50 border border-emerald-200 rounded-[11.952px] px-3 py-2">
-              <Check className="w-3 h-3 text-emerald-600" />
+            <div className="flex items-center gap-2 bg-olive-50 border border-olive-200 rounded-[11.952px] px-3 py-2">
+              <Check className="w-3 h-3 text-olive-600" />
               <div className="flex items-center gap-1">
                 <button
                   onClick={(e) => {
